@@ -7,6 +7,7 @@ import 'package:flip/screens/login_screen.dart';
 import 'package:flip/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 /// The route configuration.
 final GoRouter _router = GoRouter(
@@ -45,6 +46,16 @@ class NavigationContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       routerConfig: _router,
+      theme: _buildTheme(),
+    );
+  }
+
+  ThemeData _buildTheme() {
+    var baseTheme = ThemeData(colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xffFD6542)));
+
+    return baseTheme.copyWith(
+      textTheme: GoogleFonts.latoTextTheme(baseTheme.textTheme),
     );
   }
 }
+
