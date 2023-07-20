@@ -61,7 +61,9 @@ class NavigationContainer extends StatelessWidget {
   }
 
   ThemeData _buildTheme() {
-    var baseTheme = ThemeData(colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xffFD6542)));
+    var baseTheme = ThemeData(
+      colorScheme: const ColorScheme.dark(),
+    );
 
     return baseTheme.copyWith(
       textTheme: GoogleFonts.latoTextTheme(baseTheme.textTheme),
