@@ -1,0 +1,11 @@
+{
+  "loginScreenTitle": "Yuk kita mulai!",
+  "loginScreenSubtitle": "Masuk pakai no. HP kamu yang dipake di Flip atau daftar sekarang kalau belum ada akun",
+  "loginScreenFieldPhoneNumber": "Nomor HP",
+  "loginScreenFieldPhoneNumberHint": "Masukkin nomor HP-mu",
+  "loginScreenTerm": "Saya menyetujui Syarat & Ketentuan dan Pemberitahuan Privasi Flip",
+  "loginButton": "Lanjut",
+  "needHelp": "Butuh bantuan?",
+  "changeLanguageTitle": "Pilih bahasa",
+  "changeLanguageSubTitle": "Mau pakai bahasa apa?"
+}

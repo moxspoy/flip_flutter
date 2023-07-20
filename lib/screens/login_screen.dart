@@ -1,3 +1,4 @@
+import 'package:flip/utils/l10n/localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -10,7 +11,7 @@ class LoginScreen extends StatelessWidget {
       body:Center(
         child: ElevatedButton(
           onPressed: () => context.push('/home'),
-          child: const Text('Go to the home screens'),
+          child: Text(getText(context)!.loginButton),
         ),
       ),
     );

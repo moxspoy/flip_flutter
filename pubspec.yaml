@@ -68,6 +68,10 @@ flutter:
   # the material Icons class.
   uses-material-design: true
 
+  # set up localization.
+  # https://docs.flutter.dev/accessibility-and-localization/internationalization
+  generate: true
+
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/
