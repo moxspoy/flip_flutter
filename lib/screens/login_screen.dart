@@ -11,73 +11,62 @@ class LoginScreen extends StatelessWidget {
     return Scaffold(
         body: SafeArea(
             child: Container(
-              margin: const EdgeInsets.only(left: 16, right: 16, top: 16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Image.asset(
-                        'assets/images/icons/flip.png',
-                        height: 50,
-                        width: 50,
-                      ),
-                      InkWell(
-                        child: Text(
-                          Localizations
-                              .localeOf(context)
-                              .languageCode
-                              == LanguageProvider().languageIndonesia
-                              ? 'EN' : 'ID',
-                          style: Theme
-                              .of(context)
-                              .textTheme
-                              .headlineSmall,
-                        ),
-                        onTap: () {
-                          // Todo open slider
-                          debugPrint("value of your text ${Localizations
-                              .localeOf(context)
-                              .languageCode}");
-                        },
-                      )
-                    ],
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(height: 42),
-                      Text(
-                        getText(context)!.loginScreenTitle,
-                        style: Theme
-                            .of(context)
-                            .textTheme
-                            .headlineMedium
-                            ?.copyWith(
-                            fontWeight: FontWeight.w900
-                        ),
-                      ),
-                      const SizedBox(height: 12),
-                      Text(
-                        getText(context)!.loginScreenSubtitle,
-                        style: Theme
-                            .of(context)
-                            .textTheme
-                            .bodyMedium
-                            ?.copyWith(
-                            fontSize: 18
-                        ),
-                      ),
-                      const SizedBox(height: 32),
-                    ],
-                  ),
-                  const LoginForm(),
-                ],
+      margin: const EdgeInsets.only(left: 16, right: 16, top: 16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Image.asset(
+                'assets/images/icons/flip.png',
+                height: 50,
+                width: 50,
               ),
-            )
-        )
-    );
+              InkWell(
+                child: Text(
+                  Localizations.localeOf(context).languageCode ==
+                          LanguageProvider().languageIndonesia
+                      ? 'EN'
+                      : 'ID',
+                  style: Theme.of(context).textTheme.headlineSmall,
+                ),
+                onTap: () {
+                  // Todo open slider
+                  debugPrint(
+                      "value of your text ${Localizations.localeOf(context).languageCode}");
+                },
+              )
+            ],
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 42),
+              Text(
+                getText(context)!.loginScreenTitle,
+                style: Theme.of(context)
+                    .textTheme
+                    .headlineMedium
+                    ?.copyWith(fontWeight: FontWeight.w900),
+              ),
+              const SizedBox(height: 12),
+              Text(
+                getText(context)!.loginScreenSubtitle,
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyMedium
+                    ?.copyWith(fontSize: 18),
+              ),
+              const SizedBox(height: 32),
+            ],
+          ),
+          const Expanded(
+            child: LoginForm(),
+          )
+        ],
+      ),
+    )));
   }
 }
 
@@ -91,9 +80,10 @@ class LoginForm extends StatefulWidget {
 class _LoginFormState extends State<LoginForm> {
   late PhoneController _phoneController;
   String _phoneNumber = '';
+  bool _isTermChecked = false;
 
-  CountrySelectorNavigator selectorNavigator = const CountrySelectorNavigator
-      .searchDelegate();
+  CountrySelectorNavigator selectorNavigator =
+      const CountrySelectorNavigator.searchDelegate();
   final formKey = GlobalKey<FormState>();
   final phoneKey = GlobalKey<FormFieldState<PhoneNumber>>();
 
@@ -118,52 +108,64 @@ class _LoginFormState extends State<LoginForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: [
-          AutofillGroup(
-            child: PhoneFormField(
-              controller: _phoneController,
-              autofocus: true,
-              autofillHints: const [AutofillHints.telephoneNumber],
-              countrySelectorNavigator: const CountrySelectorNavigator
-                  .bottomSheet(),
-              defaultCountry: IsoCode.ID,
-              decoration: InputDecoration(
-                border: const OutlineInputBorder(),
-                hintText: getText(context)!.loginScreenFieldPhoneNumberHint,
-              ),
-              enabled: true,
-              showFlagInInput: true,
-              validator: _getValidator(),
-              autovalidateMode: AutovalidateMode.onUserInteraction,
-              cursorColor: Theme
-                  .of(context)
-                  .colorScheme
-                  .primary,
-              // ignore: avoid_print
-              onSaved: (p) => print('saved $p'),
-              // ignore: avoid_print
-              onChanged: (p) =>
-              {
-                setState(() {
-                  _phoneNumber = '+${p?.countryCode}${p?.nsn}';
-                })
-              },
+    return Column(
+      children: [
+        AutofillGroup(
+          child: PhoneFormField(
+            controller: _phoneController,
+            autofocus: true,
+            autofillHints: const [AutofillHints.telephoneNumber],
+            countrySelectorNavigator:
+                const CountrySelectorNavigator.bottomSheet(),
+            defaultCountry: IsoCode.ID,
+            decoration: InputDecoration(
+              border: const OutlineInputBorder(),
+              hintText: getText(context)!.loginScreenFieldPhoneNumberHint,
             ),
+            enabled: true,
+            showFlagInInput: true,
+            validator: _getValidator(),
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            cursorColor: Theme.of(context).colorScheme.primary,
+            // ignore: avoid_print
+            onSaved: (p) => print('saved $p'),
+            // ignore: avoid_print
+            onChanged: (p) => {
+              setState(() {
+                _phoneNumber = '+${p?.countryCode}${p?.nsn}';
+              })
+            },
           ),
-          const SizedBox(height: 100),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              minimumSize: const Size.fromHeight(40), // fromHeight use double.infinity as width and 40 is the height
+        ),
+        const Expanded(child: SizedBox()),
+        Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(getText(context)!.loginScreenTerm),
+                Checkbox(
+                    value: _isTermChecked,
+                    onChanged: (newValue) {
+                      setState(() {
+                        _isTermChecked = newValue!;
+                      });
+                    }),
+              ],
             ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                minimumSize: const Size.fromHeight(50),
+              ),
               onPressed: () {
-              debugPrint('requestAPI $_phoneNumber}');
+                debugPrint('requestAPI $_phoneNumber}');
               },
               child: Text(getText(context)!.loginButton),
-          )
-        ],
-      ),
+            ),
+            const SizedBox(height: 32)
+          ],
+        )
+      ],
     );
   }
 }
