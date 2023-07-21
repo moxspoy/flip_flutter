@@ -129,9 +129,9 @@ class _LoginFormState extends State<LoginForm> {
               countrySelectorNavigator: const CountrySelectorNavigator
                   .bottomSheet(),
               defaultCountry: IsoCode.ID,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: 'Phone Hint',
+              decoration: InputDecoration(
+                border: const OutlineInputBorder(),
+                hintText: getText(context)!.loginScreenFieldPhoneNumberHint,
               ),
               enabled: true,
               showFlagInInput: true,
