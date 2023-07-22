@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:phone_form_field/phone_form_field.dart';
 
 class LoginScreen extends StatelessWidget {
-  
   const LoginScreen({super.key});
 
   @override
