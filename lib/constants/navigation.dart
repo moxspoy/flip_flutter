@@ -13,4 +13,8 @@ class NavigationRouteName {
   static const transactionProgress = 'transactionProgress';
   static const profile = 'profile';
   static const webView = 'webView';
+
+  static String getPath(String routeName) {
+    return '/$routeName';
+  }
 }
