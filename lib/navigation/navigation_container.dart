@@ -15,7 +15,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 /// The route configuration.
 final GoRouter _router = GoRouter(
-  initialLocation: NavigationRouteName.splash,
+  initialLocation: NavigationRouteName.getPath(NavigationRouteName.splash),
   routes: <RouteBase>[
     GoRoute(
       path: NavigationRouteName.getPath(NavigationRouteName.splash),
@@ -39,7 +39,8 @@ final GoRouter _router = GoRouter(
 );
 
 class NavigationContainer extends StatefulWidget {
-  const NavigationContainer({super.key});
+  final AdaptiveThemeMode? savedThemeMode;
+  const NavigationContainer({super.key, this.savedThemeMode});
 
   @override
   State<NavigationContainer> createState() => _NavigationContainerState();
@@ -59,7 +60,7 @@ class _NavigationContainerState extends State<NavigationContainer> {
           brightness: Brightness.dark,
           primarySwatch: Colors.red,
         ),
-        initial: AdaptiveThemeMode.light,
+        initial: widget.savedThemeMode ?? AdaptiveThemeMode.light,
         builder: (theme, darkTheme) => MaterialApp.router(
           routerConfig: _router,
           theme: _buildTheme(theme),
