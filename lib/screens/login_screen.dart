@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:phone_form_field/phone_form_field.dart';
 
 class LoginScreen extends StatelessWidget {
+  
   const LoginScreen({super.key});
 
   @override
@@ -29,27 +30,79 @@ class LoginScreen extends StatelessWidget {
                   InkWell(
                     child: Text(
                       Localizations.localeOf(context).languageCode ==
-                          LanguageProvider().languageIndonesia
+                              LanguageProvider().languageIndonesia
                           ? 'EN'
                           : 'ID',
                       style: Theme.of(context).textTheme.headlineSmall,
                     ),
                     onTap: () {
-                      // Todo open slider
-                      debugPrint(
-                          "value of your text ${Localizations.localeOf(context).languageCode}");
+                      showModalBottomSheet<dynamic>(
+                        context: context,
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.vertical(
+                            top: Radius.circular(12),
+                          ),
+                        ),
+                        clipBehavior: Clip.antiAliasWithSaveLayer,
+                        builder: (BuildContext context) {
+                          debugPrint(
+                              "value of your text ${Localizations.localeOf(context).languageCode}");
+                          return Wrap(
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.all(16.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  // mainAxisSize: MainAxisSize.min,
+                                  children: <Widget>[
+                                    Text(
+                                      getText(context)!.changeLanguageTitle,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headlineSmall
+                                          ?.copyWith(
+                                              fontWeight: FontWeight.w900),
+                                    ),
+                                    const SizedBox(
+                                      height: 16,
+                                    ),
+                                    Text(getText(context)!
+                                        .changeLanguageSubTitle),
+                                    const SizedBox(height: 16),
+                                    OutlinedButton(
+                                      style: OutlinedButton.styleFrom(
+                                        minimumSize: const Size.fromHeight(50),
+                                      ),
+                                      onPressed: () {},
+                                      child: const Text('Bahasa Indonesia'),
+                                    ),
+                                    const SizedBox(
+                                      height: 8,
+                                    ),
+                                    OutlinedButton(
+                                      style: OutlinedButton.styleFrom(
+                                        minimumSize: const Size.fromHeight(50),
+                                      ),
+                                      onPressed: () {},
+                                      child: const Text('English'),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            ],
+                          );
+                        },
+                      );
                     },
                   ),
                   IconButton(
                       onPressed: () {
                         AdaptiveTheme.of(context).toggleThemeMode();
                       },
-                      icon: Icon(
-                          AdaptiveTheme.of(context).mode == AdaptiveThemeMode.dark
-                              ? Icons.light_mode
-                              : Icons.dark_mode
-                      )
-                  )
+                      icon: Icon(AdaptiveTheme.of(context).mode ==
+                              AdaptiveThemeMode.dark
+                          ? Icons.light_mode
+                          : Icons.dark_mode))
                 ],
               )
             ],
