@@ -40,7 +40,11 @@ final GoRouter _router = GoRouter(
 
 class NavigationContainer extends StatefulWidget {
   final AdaptiveThemeMode? savedThemeMode;
-  const NavigationContainer({super.key, this.savedThemeMode});
+
+  const NavigationContainer({
+    super.key,
+    this.savedThemeMode,
+  });
 
   @override
   State<NavigationContainer> createState() => _NavigationContainerState();

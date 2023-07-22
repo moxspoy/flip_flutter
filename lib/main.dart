@@ -1,3 +1,4 @@
+import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flip/navigation/navigation_container.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -14,15 +15,20 @@ Future main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
 
-  runApp(const MyApp());
+  final savedThemeMode = await AdaptiveTheme.getThemeMode();
+
+  runApp(MyApp(savedThemeMode: savedThemeMode));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final AdaptiveThemeMode? savedThemeMode;
+  const MyApp({super.key, this.savedThemeMode});
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return const NavigationContainer();
+    return NavigationContainer(
+      savedThemeMode: savedThemeMode,
+    );
   }
 }
