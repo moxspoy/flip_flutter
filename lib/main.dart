@@ -12,6 +12,7 @@ Future main() async {
     yield LicenseEntryWithLineBreaks(['google_fonts'], license);
   });
 
+  WidgetsFlutterBinding.ensureInitialized();
 
   runApp(const MyApp());
 }
