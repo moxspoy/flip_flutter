@@ -1,0 +1,11 @@
+{
+  "loginScreenTitle": "Let's get started!",
+  "loginScreenSubtitle": "Continue with your phone number to log in. Or, sign up now if you're new",
+  "loginScreenFieldPhoneNumber": "Phone number",
+  "loginScreenFieldPhoneNumberHint": "Enter your phone number",
+  "loginScreenTerm": "I agree to Flip term & conditions and privacy notice",
+  "loginButton": "Continue",
+  "needHelp": "Need help?",
+  "changeLanguageTitle": "Change language",
+  "changeLanguageSubTitle": "Which language do you prefer?"
+}
