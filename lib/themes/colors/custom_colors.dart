@@ -61,6 +61,7 @@ class CustomColor {
   static const Color blueMin3 = Color(0xFFE0ECF7);
   static const Color aliceBlue = Color(0xFFF4FBFF);
   static const Color blueSky = Color(0xFF009CFE);
+  static const Color blueDark = Color(0x0B1D52A2);
   // Sapphire Blue
   static const Color sapphireBluePlus2 = Color(0xFF1D2D44);
   static const Color sapphireBluePlus1 = Color(0xFF3A5988);
