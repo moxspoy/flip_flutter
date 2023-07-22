@@ -12,10 +12,10 @@ class LoginScreen extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           toolbarHeight: 90,
+          backgroundColor:
+              AdaptiveTheme.of(context).theme.primaryColor.withOpacity(0.8),
           leading: Padding(
-            padding: const EdgeInsets.only(
-              left: 16
-            ),
+            padding: const EdgeInsets.only(left: 16),
             child: Image.asset(
               'assets/images/icons/flip.png',
               height: 50,
@@ -27,10 +27,13 @@ class LoginScreen extends StatelessWidget {
               child: InkWell(
                 child: Text(
                   Localizations.localeOf(context).languageCode ==
-                      LanguageProvider().languageIndonesia
+                          LanguageProvider().languageIndonesia
                       ? 'EN'
                       : 'ID',
-                  style: Theme.of(context).textTheme.headlineSmall,
+                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w900,
+                      ),
                 ),
                 onTap: () {
                   showModalBottomSheet<dynamic>(
@@ -69,22 +72,28 @@ class LoginScreen extends StatelessWidget {
                                 const SizedBox(height: 16),
                                 OutlinedButton(
                                   style: OutlinedButton.styleFrom(
-                                    minimumSize:
-                                    const Size.fromHeight(50),
+                                    minimumSize: const Size.fromHeight(50),
                                   ),
                                   onPressed: () {},
-                                  child: const Text('Bahasa Indonesia'),
+                                  child: Text('Bahasa Indonesia',
+                                      style: AdaptiveTheme.of(context)
+                                          .theme
+                                          .textTheme
+                                          .bodyMedium),
                                 ),
                                 const SizedBox(
                                   height: 8,
                                 ),
                                 OutlinedButton(
                                   style: OutlinedButton.styleFrom(
-                                    minimumSize:
-                                    const Size.fromHeight(50),
+                                    minimumSize: const Size.fromHeight(50),
                                   ),
                                   onPressed: () {},
-                                  child: const Text('English'),
+                                  child: Text('English',
+                                      style: AdaptiveTheme.of(context)
+                                          .theme
+                                          .textTheme
+                                          .bodyMedium),
                                 ),
                               ],
                             ),
