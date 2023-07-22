@@ -40,35 +40,40 @@ final GoRouter _router = GoRouter(
   ],
 );
 
-/// The main app.
-class NavigationContainer extends StatelessWidget {
-  /// Constructs a [MyApp]
+class NavigationContainer extends StatefulWidget {
   const NavigationContainer({super.key});
+
+  @override
+  State<NavigationContainer> createState() => _NavigationContainerState();
+
+}
+
+class _NavigationContainerState extends State<NavigationContainer> {
 
   @override
   Widget build(BuildContext context) {
     return AdaptiveTheme(
-      light: ThemeData(
-        brightness: Brightness.light,
-        primarySwatch: Colors.red,
-      ),
-      dark: ThemeData(
-        brightness: Brightness.dark,
-        primarySwatch: Colors.red,
-      ),
-      initial: AdaptiveThemeMode.light,
-      builder: (theme, darkTheme) => MaterialApp.router(
-        routerConfig: _router,
-        theme: _buildTheme(theme),
-        darkTheme: darkTheme,
-        localizationsDelegates: const [
-          AppLocalizations.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-        ],
-        supportedLocales: AppLocalizations.supportedLocales,
-      )
+        light: ThemeData(
+          brightness: Brightness.light,
+          primarySwatch: Colors.red,
+        ),
+        dark: ThemeData(
+          brightness: Brightness.dark,
+          primarySwatch: Colors.red,
+        ),
+        initial: AdaptiveThemeMode.light,
+        builder: (theme, darkTheme) => MaterialApp.router(
+          routerConfig: _router,
+          theme: _buildTheme(theme),
+          darkTheme: darkTheme,
+          localizationsDelegates: const [
+            AppLocalizations.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          supportedLocales: AppLocalizations.supportedLocales,
+        )
     );
   }
 
