@@ -3,6 +3,7 @@
 // found in the LICENSE file.
 
 import 'package:adaptive_theme/adaptive_theme.dart';
+import 'package:flip/constants/navigation.dart';
 import 'package:flip/screens/home_screen.dart';
 import 'package:flip/screens/login_screen.dart';
 import 'package:flip/screens/splash_screen.dart';
@@ -14,25 +15,22 @@ import 'package:google_fonts/google_fonts.dart';
 
 /// The route configuration.
 final GoRouter _router = GoRouter(
-  initialLocation: '/splash',
+  initialLocation: NavigationRouteName.splash,
   routes: <RouteBase>[
     GoRoute(
-      path: '/splash',
-      name: 'splash',
+      path: NavigationRouteName.getPath(NavigationRouteName.splash),
       builder: (BuildContext context, GoRouterState state) {
         return const SplashScreen();
       },
     ),
     GoRoute(
-      path: '/home',
-      name: 'home',
+      path: NavigationRouteName.getPath(NavigationRouteName.home),
       builder: (BuildContext context, GoRouterState state) {
         return const HomeScreen();
       },
     ),
     GoRoute(
-      path: '/login',
-      name: 'login',
+      path: NavigationRouteName.getPath(NavigationRouteName.login),
       builder: (BuildContext context, GoRouterState state) {
         return const LoginScreen();
       },
