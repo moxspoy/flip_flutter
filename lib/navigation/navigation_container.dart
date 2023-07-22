@@ -2,6 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flip/screens/home_screen.dart';
 import 'package:flip/screens/login_screen.dart';
 import 'package:flip/screens/splash_screen.dart';
@@ -46,27 +47,34 @@ class NavigationContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      routerConfig: _router,
-      theme: _buildTheme(),
-      localizationsDelegates: const [
-        AppLocalizations.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      supportedLocales: AppLocalizations.supportedLocales,
-
+    return AdaptiveTheme(
+      light: ThemeData(
+        brightness: Brightness.light,
+        primarySwatch: Colors.red,
+      ),
+      dark: ThemeData(
+        brightness: Brightness.dark,
+        primarySwatch: Colors.red,
+      ),
+      initial: AdaptiveThemeMode.light,
+      builder: (theme, darkTheme) => MaterialApp.router(
+        routerConfig: _router,
+        theme: _buildTheme(theme),
+        darkTheme: darkTheme,
+        localizationsDelegates: const [
+          AppLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: AppLocalizations.supportedLocales,
+      )
     );
   }
 
-  ThemeData _buildTheme() {
-    var baseTheme = ThemeData(
-      colorScheme: const ColorScheme.dark(),
-    );
-
-    return baseTheme.copyWith(
-      textTheme: GoogleFonts.latoTextTheme(baseTheme.textTheme),
+  ThemeData _buildTheme(ThemeData themeData) {
+    return themeData.copyWith(
+      textTheme: GoogleFonts.latoTextTheme(themeData.textTheme),
     );
   }
 }

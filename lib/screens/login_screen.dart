@@ -1,3 +1,4 @@
+import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flip/constants/l10n.dart';
 import 'package:flip/utils/l10n/localizations.dart';
 import 'package:flutter/material.dart';
@@ -23,19 +24,33 @@ class LoginScreen extends StatelessWidget {
                 height: 50,
                 width: 50,
               ),
-              InkWell(
-                child: Text(
-                  Localizations.localeOf(context).languageCode ==
+              Row(
+                children: [
+                  InkWell(
+                    child: Text(
+                      Localizations.localeOf(context).languageCode ==
                           LanguageProvider().languageIndonesia
-                      ? 'EN'
-                      : 'ID',
-                  style: Theme.of(context).textTheme.headlineSmall,
-                ),
-                onTap: () {
-                  // Todo open slider
-                  debugPrint(
-                      "value of your text ${Localizations.localeOf(context).languageCode}");
-                },
+                          ? 'EN'
+                          : 'ID',
+                      style: Theme.of(context).textTheme.headlineSmall,
+                    ),
+                    onTap: () {
+                      // Todo open slider
+                      debugPrint(
+                          "value of your text ${Localizations.localeOf(context).languageCode}");
+                    },
+                  ),
+                  IconButton(
+                      onPressed: () {
+                        AdaptiveTheme.of(context).toggleThemeMode();
+                      },
+                      icon: Icon(
+                          AdaptiveTheme.of(context).mode == AdaptiveThemeMode.dark
+                              ? Icons.light_mode
+                              : Icons.dark_mode
+                      )
+                  )
+                ],
               )
             ],
           ),
