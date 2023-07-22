@@ -7,6 +7,7 @@ import 'package:flip/constants/navigation.dart';
 import 'package:flip/screens/home_screen.dart';
 import 'package:flip/screens/login_screen.dart';
 import 'package:flip/screens/splash_screen.dart';
+import 'package:flip/themes/colors/material_custom_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -58,11 +59,11 @@ class _NavigationContainerState extends State<NavigationContainer> {
     return AdaptiveTheme(
         light: ThemeData(
           brightness: Brightness.light,
-          primarySwatch: Colors.red,
+          primarySwatch: CustomMaterialColor.orange,
         ),
         dark: ThemeData(
           brightness: Brightness.dark,
-          primarySwatch: Colors.red,
+          primarySwatch: CustomMaterialColor.blue,
         ),
         initial: widget.savedThemeMode ?? AdaptiveThemeMode.light,
         builder: (theme, darkTheme) => MaterialApp.router(
