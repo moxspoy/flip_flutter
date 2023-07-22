@@ -10,130 +10,138 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: SafeArea(
-            child: Container(
-      margin: const EdgeInsets.only(left: 16, right: 16, top: 16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Image.asset(
-                'assets/images/icons/flip.png',
-                height: 50,
-                width: 50,
-              ),
-              Row(
-                children: [
-                  InkWell(
-                    child: Text(
-                      Localizations.localeOf(context).languageCode ==
-                              LanguageProvider().languageIndonesia
-                          ? 'EN'
-                          : 'ID',
-                      style: Theme.of(context).textTheme.headlineSmall,
+        appBar: AppBar(
+          toolbarHeight: 90,
+          leading: Padding(
+            padding: const EdgeInsets.only(
+              left: 16
+            ),
+            child: Image.asset(
+              'assets/images/icons/flip.png',
+              height: 50,
+              width: 50,
+            ),
+          ),
+          actions: [
+            Center(
+              child: InkWell(
+                child: Text(
+                  Localizations.localeOf(context).languageCode ==
+                      LanguageProvider().languageIndonesia
+                      ? 'EN'
+                      : 'ID',
+                  style: Theme.of(context).textTheme.headlineSmall,
+                ),
+                onTap: () {
+                  showModalBottomSheet<dynamic>(
+                    context: context,
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.vertical(
+                        top: Radius.circular(12),
+                      ),
                     ),
-                    onTap: () {
-                      showModalBottomSheet<dynamic>(
-                        context: context,
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.vertical(
-                            top: Radius.circular(12),
-                          ),
-                        ),
-                        clipBehavior: Clip.antiAliasWithSaveLayer,
-                        builder: (BuildContext context) {
-                          debugPrint(
-                              "value of your text ${Localizations.localeOf(context).languageCode}");
-                          return Wrap(
-                            children: [
-                              Container(
-                                padding: const EdgeInsets.all(16.0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  // mainAxisSize: MainAxisSize.min,
-                                  children: <Widget>[
-                                    Text(
-                                      getText(context)!.changeLanguageTitle,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headlineSmall
-                                          ?.copyWith(
-                                              fontWeight: FontWeight.w900),
-                                    ),
-                                    const SizedBox(
-                                      height: 16,
-                                    ),
-                                    Text(getText(context)!
-                                        .changeLanguageSubTitle),
-                                    const SizedBox(height: 16),
-                                    OutlinedButton(
-                                      style: OutlinedButton.styleFrom(
-                                        minimumSize: const Size.fromHeight(50),
-                                      ),
-                                      onPressed: () {},
-                                      child: const Text('Bahasa Indonesia'),
-                                    ),
-                                    const SizedBox(
-                                      height: 8,
-                                    ),
-                                    OutlinedButton(
-                                      style: OutlinedButton.styleFrom(
-                                        minimumSize: const Size.fromHeight(50),
-                                      ),
-                                      onPressed: () {},
-                                      child: const Text('English'),
-                                    ),
-                                  ],
+                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                    builder: (BuildContext context) {
+                      debugPrint(
+                          "value of your text ${Localizations.localeOf(context).languageCode}");
+                      return Wrap(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Column(
+                              crossAxisAlignment:
+                              CrossAxisAlignment.start,
+                              // mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                Text(
+                                  getText(context)!.changeLanguageTitle,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headlineSmall
+                                      ?.copyWith(
+                                      fontWeight: FontWeight.w900),
                                 ),
-                              )
-                            ],
-                          );
-                        },
+                                const SizedBox(
+                                  height: 16,
+                                ),
+                                Text(getText(context)!
+                                    .changeLanguageSubTitle),
+                                const SizedBox(height: 16),
+                                OutlinedButton(
+                                  style: OutlinedButton.styleFrom(
+                                    minimumSize:
+                                    const Size.fromHeight(50),
+                                  ),
+                                  onPressed: () {},
+                                  child: const Text('Bahasa Indonesia'),
+                                ),
+                                const SizedBox(
+                                  height: 8,
+                                ),
+                                OutlinedButton(
+                                  style: OutlinedButton.styleFrom(
+                                    minimumSize:
+                                    const Size.fromHeight(50),
+                                  ),
+                                  onPressed: () {},
+                                  child: const Text('English'),
+                                ),
+                              ],
+                            ),
+                          )
+                        ],
                       );
                     },
+                  );
+                },
+              ),
+            ),
+            IconButton(
+                onPressed: () {
+                  AdaptiveTheme.of(context).toggleThemeMode();
+                },
+                icon: Icon(AdaptiveTheme.of(context).mode ==
+                    AdaptiveThemeMode.dark
+                    ? Icons.light_mode
+                    : Icons.dark_mode
+                )
+            )
+          ],
+        ),
+        body: Container(
+          margin: const EdgeInsets.only(left: 16, right: 16, top: 16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(height: 42),
+                  Text(
+                    getText(context)!.loginScreenTitle,
+                    style: Theme.of(context)
+                        .textTheme
+                        .headlineMedium
+                        ?.copyWith(fontWeight: FontWeight.w900),
                   ),
-                  IconButton(
-                      onPressed: () {
-                        AdaptiveTheme.of(context).toggleThemeMode();
-                      },
-                      icon: Icon(AdaptiveTheme.of(context).mode ==
-                              AdaptiveThemeMode.dark
-                          ? Icons.light_mode
-                          : Icons.dark_mode))
+                  const SizedBox(height: 12),
+                  Text(
+                    getText(context)!.loginScreenSubtitle,
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyMedium
+                        ?.copyWith(fontSize: 18),
+                  ),
+                  const SizedBox(height: 32),
                 ],
+              ),
+              const Expanded(
+                child: LoginForm(),
               )
             ],
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 42),
-              Text(
-                getText(context)!.loginScreenTitle,
-                style: Theme.of(context)
-                    .textTheme
-                    .headlineMedium
-                    ?.copyWith(fontWeight: FontWeight.w900),
-              ),
-              const SizedBox(height: 12),
-              Text(
-                getText(context)!.loginScreenSubtitle,
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyMedium
-                    ?.copyWith(fontSize: 18),
-              ),
-              const SizedBox(height: 32),
-            ],
-          ),
-          const Expanded(
-            child: LoginForm(),
-          )
-        ],
-      ),
-    )));
+        )
+    );
   }
 }
 
