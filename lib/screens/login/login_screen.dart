@@ -1,3 +1,4 @@
+import 'package:flip/themes/text/custom_text_style.dart';
 import 'package:flip/utils/l10n/localizations.dart';
 import 'package:flip/widgets/appbar/appbar.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +27,7 @@ class LoginScreen extends StatelessWidget {
                     const SizedBox(height: 42),
                     Text(
                       getText(context)!.loginScreenTitle,
-                      style: Theme.of(context).textTheme.headlineLarge,
+                      style: CustomTextStyle.headlineLarge(context),
                     ),
                     const SizedBox(height: 12),
                     Text(
