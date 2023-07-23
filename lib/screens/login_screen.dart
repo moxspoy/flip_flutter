@@ -9,41 +9,45 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: const OnboardingAppBar(),
-        body: Container(
-          margin: const EdgeInsets.only(left: 16, right: 16, top: 16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(height: 42),
-                  Text(
-                    getText(context)!.loginScreenTitle,
-                    style: Theme.of(context)
-                        .textTheme
-                        .headlineMedium
-                        ?.copyWith(fontWeight: FontWeight.w900),
-                  ),
-                  const SizedBox(height: 12),
-                  Text(
-                    getText(context)!.loginScreenSubtitle,
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyMedium
-                        ?.copyWith(fontSize: 18),
-                  ),
-                  const SizedBox(height: 32),
-                ],
-              ),
-              const Expanded(
-                child: LoginForm(),
-              )
-            ],
-          ),
-        )
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).unfocus();
+      },
+      child: Scaffold(
+          appBar: const OnboardingAppBar(),
+          body: Container(
+            margin: const EdgeInsets.only(left: 16, right: 16, top: 16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(height: 42),
+                    Text(
+                      getText(context)!.loginScreenTitle,
+                      style: Theme.of(context)
+                          .textTheme
+                          .headlineMedium
+                          ?.copyWith(fontWeight: FontWeight.w900),
+                    ),
+                    const SizedBox(height: 12),
+                    Text(
+                      getText(context)!.loginScreenSubtitle,
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyMedium
+                          ?.copyWith(fontSize: 18),
+                    ),
+                    const SizedBox(height: 32),
+                  ],
+                ),
+                const Expanded(
+                  child: LoginForm(),
+                )
+              ],
+            ),
+          )),
     );
   }
 }
