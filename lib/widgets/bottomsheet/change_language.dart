@@ -72,9 +72,14 @@ class ChangeLanguageBottomSheet {
                                           .textTheme
                                           .bodyMedium)),
                               state.selectedLanguage == Language.indonesia
-                                  ? const SizedBox(
+                                  ? SizedBox(
                                       width: 20,
-                                      child: Icon(Icons.check),
+                                      child: Icon(
+                                        Icons.check,
+                                        color: AdaptiveTheme.of(context)
+                                            .theme
+                                            .hintColor,
+                                      ),
                                     )
                                   : Container()
                             ],
@@ -103,9 +108,12 @@ class ChangeLanguageBottomSheet {
                                           .textTheme
                                           .bodyMedium)),
                               state.selectedLanguage == Language.english
-                                  ? const SizedBox(
+                                  ? SizedBox(
                                       width: 20,
-                                      child: Icon(Icons.check),
+                                      child: Icon(Icons.check,
+                                          color: AdaptiveTheme.of(context)
+                                              .theme
+                                              .hintColor),
                                     )
                                   : Container()
                             ],
