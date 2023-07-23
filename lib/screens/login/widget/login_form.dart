@@ -1,4 +1,3 @@
-import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flip/utils/l10n/localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:phone_form_field/phone_form_field.dart';
@@ -80,13 +79,7 @@ class _LoginFormState extends State<LoginForm> {
                   flex: 5,
                   child: Text(
                     getText(context)!.loginScreenTerm,
-                    style: AdaptiveTheme.of(context)
-                        .theme
-                        .textTheme
-                        .bodySmall
-                        ?.copyWith(
-                          fontSize: 11,
-                        ),
+                    style: Theme.of(context).textTheme.bodySmall,
                   ),
                 ),
                 Checkbox(

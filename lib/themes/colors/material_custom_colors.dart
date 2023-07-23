@@ -29,7 +29,7 @@ class CustomMaterialColor {
   };
 
   static MaterialColor blue =
-      MaterialColor(CustomColor.bluePlus2.value, blueSwatch);
+      MaterialColor(CustomColor.bluePlus1.value, blueSwatch);
   static MaterialColor orange =
       MaterialColor(CustomColor.flipOrange.value, orangeSwatch);
 }

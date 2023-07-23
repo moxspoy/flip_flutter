@@ -3,9 +3,12 @@ import 'package:flip/l10n/language.dart';
 import 'package:flip/l10n/language_bloc.dart';
 import 'package:flip/l10n/language_event.dart';
 import 'package:flip/l10n/language_state.dart';
+import 'package:flip/themes/colors/custom_colors.dart';
 import 'package:flip/utils/l10n/localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../themes/text/custom_text_style.dart';
 
 class ChangeLanguageBottomSheet {
   static show(BuildContext context) {
@@ -18,8 +21,6 @@ class ChangeLanguageBottomSheet {
       ),
       clipBehavior: Clip.antiAliasWithSaveLayer,
       builder: (BuildContext context) {
-        debugPrint(
-            "value of your text ${Localizations.localeOf(context).languageCode}");
         return Wrap(
           children: [
             Container(
@@ -40,12 +41,22 @@ class ChangeLanguageBottomSheet {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       // mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
+                        Center(
+                          child: ClipRRect(
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(12.0)),
+                            child: Container(
+                              color: CustomColor.borderDisabled,
+                              child: const SizedBox(
+                                width: 24,
+                                height: 6,
+                              ),
+                            ),
+                          ),
+                        ),
                         Text(
                           getText(context)!.changeLanguageTitle,
-                          style: Theme.of(context)
-                              .textTheme
-                              .headlineSmall
-                              ?.copyWith(fontWeight: FontWeight.w900),
+                          style: CustomTextStyle.sliderTitle(context),
                         ),
                         const SizedBox(
                           height: 16,
@@ -67,8 +78,7 @@ class ChangeLanguageBottomSheet {
                             children: [
                               Expanded(
                                   child: Text('Bahasa Indonesia',
-                                      style: AdaptiveTheme.of(context)
-                                          .theme
+                                      style: Theme.of(context)
                                           .textTheme
                                           .bodyMedium)),
                               state.selectedLanguage == Language.indonesia
@@ -103,8 +113,7 @@ class ChangeLanguageBottomSheet {
                             children: [
                               Expanded(
                                   child: Text('English',
-                                      style: AdaptiveTheme.of(context)
-                                          .theme
+                                      style: Theme.of(context)
                                           .textTheme
                                           .bodyMedium)),
                               state.selectedLanguage == Language.english

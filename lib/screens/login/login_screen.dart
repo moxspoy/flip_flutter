@@ -26,18 +26,12 @@ class LoginScreen extends StatelessWidget {
                     const SizedBox(height: 42),
                     Text(
                       getText(context)!.loginScreenTitle,
-                      style: Theme.of(context)
-                          .textTheme
-                          .headlineMedium
-                          ?.copyWith(fontWeight: FontWeight.w900),
+                      style: Theme.of(context).textTheme.headlineLarge,
                     ),
                     const SizedBox(height: 12),
                     Text(
                       getText(context)!.loginScreenSubtitle,
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyMedium
-                          ?.copyWith(fontSize: 18),
+                      style: Theme.of(context).textTheme.bodyMedium,
                     ),
                     const SizedBox(height: 32),
                   ],
