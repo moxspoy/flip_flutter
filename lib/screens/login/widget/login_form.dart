@@ -3,6 +3,7 @@ import 'package:flip/utils/l10n/localizations.dart';
 import 'package:flip/utils/validation/validation.dart';
 import 'package:flip/widgets/animation/shake.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:phone_form_field/phone_form_field.dart';
 
 class LoginForm extends StatefulWidget {
@@ -111,6 +112,7 @@ class _LoginFormState extends State<LoginForm> {
               ),
               onPressed: () {
                 if (!_isTermChecked) {
+                  HapticFeedback.vibrate();
                   _termConditionText.currentState?.shake();
                   return;
                 }
@@ -126,6 +128,7 @@ class _LoginFormState extends State<LoginForm> {
                   });
                   return;
                 }
+                HapticFeedback.vibrate();
                 SnackBar snackBar = SnackBar(
                   content: Text(
                     validationMessage,
