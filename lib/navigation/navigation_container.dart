@@ -77,6 +77,7 @@ class _NavigationContainerState extends State<NavigationContainer> {
               builder: (theme, darkTheme) => MaterialApp.router(
                     routerConfig: _router,
                     theme: _buildTheme(theme),
+                    debugShowCheckedModeBanner: false,
                     darkTheme: darkTheme,
                     localizationsDelegates: const [
                       AppLocalizations.delegate,
