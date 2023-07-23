@@ -1,4 +1,5 @@
 import 'package:flip/utils/l10n/localizations.dart';
+import 'package:flip/widgets/animation/shake.dart';
 import 'package:flutter/material.dart';
 import 'package:phone_form_field/phone_form_field.dart';
 
@@ -14,6 +15,8 @@ class _LoginFormState extends State<LoginForm> {
   String _phoneNumber = '';
   bool _isTermChecked = false;
 
+  late GlobalKey<CustomShakeWidgetState> _termConditionText;
+
   CountrySelectorNavigator selectorNavigator =
       const CountrySelectorNavigator.searchDelegate();
   final formKey = GlobalKey<FormState>();
@@ -22,6 +25,7 @@ class _LoginFormState extends State<LoginForm> {
   @override
   initState() {
     super.initState();
+    _termConditionText = GlobalKey();
     _phoneController = PhoneController(null);
     _phoneController.addListener(() => setState(() {}));
   }
@@ -29,6 +33,7 @@ class _LoginFormState extends State<LoginForm> {
   @override
   void dispose() {
     super.dispose();
+    _termConditionText.currentState?.dispose();
     _phoneController.dispose();
   }
 
@@ -77,9 +82,15 @@ class _LoginFormState extends State<LoginForm> {
               children: [
                 Expanded(
                   flex: 5,
-                  child: Text(
-                    getText(context)!.loginScreenTerm,
-                    style: Theme.of(context).textTheme.bodySmall,
+                  child: CustomShakeWidget(
+                    key: _termConditionText,
+                    duration: const Duration(milliseconds: 100),
+                    shakeCount: 2,
+                    shakeOffset: 3,
+                    child: Text(
+                      getText(context)!.loginScreenTerm,
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
                   ),
                 ),
                 Checkbox(
@@ -96,7 +107,11 @@ class _LoginFormState extends State<LoginForm> {
                 minimumSize: const Size.fromHeight(50),
               ),
               onPressed: () {
-                debugPrint('requestAPI $_phoneNumber}');
+                if (!_isTermChecked) {
+                  _termConditionText.currentState?.shake();
+                } else {
+                  debugPrint('requestAPI $_phoneNumber}');
+                }
               },
               child: Text(getText(context)!.loginButton),
             ),
