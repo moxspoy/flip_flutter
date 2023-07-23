@@ -5,9 +5,9 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flip/constants/navigation.dart';
 import 'package:flip/l10n/language_bloc.dart';
-import 'package:flip/screens/home_screen.dart';
-import 'package:flip/screens/login_screen.dart';
-import 'package:flip/screens/splash_screen.dart';
+import 'package:flip/screens/home/home_screen.dart';
+import 'package:flip/screens/login/login_screen.dart';
+import 'package:flip/screens/splash/splash_screen.dart';
 import 'package:flip/themes/colors/material_custom_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
