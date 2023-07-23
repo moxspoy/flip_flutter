@@ -1,6 +1,8 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
+import 'package:circle_flags/circle_flags.dart';
 import 'package:flip/constants/l10n.dart';
 import 'package:flip/utils/l10n/localizations.dart';
+import 'package:flip/widgets/bottomsheet/change_language.dart';
 import 'package:flutter/material.dart';
 import 'package:phone_form_field/phone_form_field.dart';
 
@@ -25,83 +27,15 @@ class LoginScreen extends StatelessWidget {
           actions: [
             Center(
               child: InkWell(
-                child: Text(
+                child: CircleFlag(
                   Localizations.localeOf(context).languageCode ==
                           LanguageProvider().languageIndonesia
-                      ? 'EN'
-                      : 'ID',
-                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w900,
-                      ),
+                      ? 'id'
+                      : 'gb',
+                  size: 24.0,
                 ),
                 onTap: () {
-                  showModalBottomSheet<dynamic>(
-                    context: context,
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.vertical(
-                        top: Radius.circular(12),
-                      ),
-                    ),
-                    clipBehavior: Clip.antiAliasWithSaveLayer,
-                    builder: (BuildContext context) {
-                      debugPrint(
-                          "value of your text ${Localizations.localeOf(context).languageCode}");
-                      return Wrap(
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.all(16.0),
-                            child: Column(
-                              crossAxisAlignment:
-                              CrossAxisAlignment.start,
-                              // mainAxisSize: MainAxisSize.min,
-                              children: <Widget>[
-                                Text(
-                                  getText(context)!.changeLanguageTitle,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headlineSmall
-                                      ?.copyWith(
-                                      fontWeight: FontWeight.w900),
-                                ),
-                                const SizedBox(
-                                  height: 16,
-                                ),
-                                Text(getText(context)!
-                                    .changeLanguageSubTitle),
-                                const SizedBox(height: 16),
-                                OutlinedButton(
-                                  style: OutlinedButton.styleFrom(
-                                    minimumSize: const Size.fromHeight(50),
-                                  ),
-                                  onPressed: () {},
-                                  child: Text('Bahasa Indonesia',
-                                      style: AdaptiveTheme.of(context)
-                                          .theme
-                                          .textTheme
-                                          .bodyMedium),
-                                ),
-                                const SizedBox(
-                                  height: 8,
-                                ),
-                                OutlinedButton(
-                                  style: OutlinedButton.styleFrom(
-                                    minimumSize: const Size.fromHeight(50),
-                                  ),
-                                  onPressed: () {},
-                                  child: Text('English',
-                                      style: AdaptiveTheme.of(context)
-                                          .theme
-                                          .textTheme
-                                          .bodyMedium),
-                                ),
-                              ],
-                            ),
-                          )
-                        ],
-                      );
-                    },
-                  );
+                  ChangeLanguageBottomSheet.show(context);
                 },
               ),
             ),
@@ -227,7 +161,19 @@ class _LoginFormState extends State<LoginForm> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(getText(context)!.loginScreenTerm),
+                Expanded(
+                  flex: 5,
+                  child: Text(
+                    getText(context)!.loginScreenTerm,
+                    style: AdaptiveTheme.of(context)
+                        .theme
+                        .textTheme
+                        .bodySmall
+                        ?.copyWith(
+                          fontSize: 11,
+                        ),
+                  ),
+                ),
                 Checkbox(
                     value: _isTermChecked,
                     onChanged: (newValue) {

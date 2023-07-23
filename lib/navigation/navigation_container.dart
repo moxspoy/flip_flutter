@@ -4,15 +4,19 @@
 
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flip/constants/navigation.dart';
+import 'package:flip/l10n/language_bloc.dart';
 import 'package:flip/screens/home_screen.dart';
 import 'package:flip/screens/login_screen.dart';
 import 'package:flip/screens/splash_screen.dart';
 import 'package:flip/themes/colors/material_custom_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../l10n/language_state.dart';
 
 /// The route configuration.
 final GoRouter _router = GoRouter(
@@ -56,28 +60,35 @@ class _NavigationContainerState extends State<NavigationContainer> {
 
   @override
   Widget build(BuildContext context) {
-    return AdaptiveTheme(
-        light: ThemeData(
-          brightness: Brightness.light,
-          primarySwatch: CustomMaterialColor.orange,
-        ),
-        dark: ThemeData(
-          brightness: Brightness.dark,
-          primarySwatch: CustomMaterialColor.blue,
-        ),
-        initial: widget.savedThemeMode ?? AdaptiveThemeMode.light,
-        builder: (theme, darkTheme) => MaterialApp.router(
-          routerConfig: _router,
-          theme: _buildTheme(theme),
-          darkTheme: darkTheme,
-          localizationsDelegates: const [
-            AppLocalizations.delegate,
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-          ],
-          supportedLocales: AppLocalizations.supportedLocales,
-        )
+    return BlocProvider(
+      create: (context) => LanguageBloc(),
+      child: BlocBuilder<LanguageBloc, LanguageState>(
+        builder: (context, state) {
+          return AdaptiveTheme(
+              light: ThemeData(
+                brightness: Brightness.light,
+                primarySwatch: CustomMaterialColor.orange,
+              ),
+              dark: ThemeData(
+                brightness: Brightness.dark,
+                primarySwatch: CustomMaterialColor.blue,
+              ),
+              initial: widget.savedThemeMode ?? AdaptiveThemeMode.light,
+              builder: (theme, darkTheme) => MaterialApp.router(
+                    routerConfig: _router,
+                    theme: _buildTheme(theme),
+                    darkTheme: darkTheme,
+                    localizationsDelegates: const [
+                      AppLocalizations.delegate,
+                      GlobalMaterialLocalizations.delegate,
+                      GlobalWidgetsLocalizations.delegate,
+                      GlobalCupertinoLocalizations.delegate,
+                    ],
+                    locale: state.selectedLanguage.value,
+                    supportedLocales: AppLocalizations.supportedLocales,
+                  ));
+        },
+      ),
     );
   }
 
