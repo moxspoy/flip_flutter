@@ -1,4 +1,6 @@
+import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flip/utils/l10n/localizations.dart';
+import 'package:flip/utils/validation/validation.dart';
 import 'package:flip/widgets/animation/shake.dart';
 import 'package:flutter/material.dart';
 import 'package:phone_form_field/phone_form_field.dart';
@@ -14,6 +16,7 @@ class _LoginFormState extends State<LoginForm> {
   late PhoneController _phoneController;
   String _phoneNumber = '';
   bool _isTermChecked = false;
+  bool _isButtonLoading = false;
 
   late GlobalKey<CustomShakeWidgetState> _termConditionText;
 
@@ -53,7 +56,7 @@ class _LoginFormState extends State<LoginForm> {
             autofocus: true,
             autofillHints: const [AutofillHints.telephoneNumber],
             countrySelectorNavigator:
-                const CountrySelectorNavigator.bottomSheet(),
+            const CountrySelectorNavigator.bottomSheet(),
             defaultCountry: IsoCode.ID,
             decoration: InputDecoration(
               border: const OutlineInputBorder(),
@@ -84,9 +87,9 @@ class _LoginFormState extends State<LoginForm> {
                   flex: 5,
                   child: CustomShakeWidget(
                     key: _termConditionText,
-                    duration: const Duration(milliseconds: 100),
-                    shakeCount: 2,
-                    shakeOffset: 3,
+                    duration: const Duration(milliseconds: 500),
+                    shakeCount: 4,
+                    shakeOffset: 8,
                     child: Text(
                       getText(context)!.loginScreenTerm,
                       style: Theme.of(context).textTheme.bodySmall,
@@ -109,11 +112,41 @@ class _LoginFormState extends State<LoginForm> {
               onPressed: () {
                 if (!_isTermChecked) {
                   _termConditionText.currentState?.shake();
-                } else {
-                  debugPrint('requestAPI $_phoneNumber}');
+                  return;
                 }
+                String validationMessage = validateMobile(_phoneNumber);
+                if (validationMessage.isEmpty) {
+                  setState(() {
+                    _isButtonLoading = true;
+                  });
+                  Future.delayed(const Duration(milliseconds: 3000), () {
+                    setState(() {
+                      _isButtonLoading = false;
+                    });
+                  });
+                  return;
+                }
+                SnackBar snackBar = SnackBar(
+                  content: Text(
+                    validationMessage,
+                    style: AdaptiveTheme.of(context).theme.textTheme.bodyMedium,
+                  ),
+                  backgroundColor:
+                      AdaptiveTheme.of(context).theme.colorScheme.background,
+                );
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                return;
               },
-              child: Text(getText(context)!.loginButton),
+              child: _isButtonLoading
+                  ? SizedBox(
+                      height: 16,
+                      width: 16,
+                      child: Center(
+                          child: CircularProgressIndicator(
+                        color: Theme.of(context).hintColor,
+                        strokeWidth: 1.5,
+                      )))
+                  : Text(getText(context)!.loginButton),
             ),
             const SizedBox(height: 32)
           ],
