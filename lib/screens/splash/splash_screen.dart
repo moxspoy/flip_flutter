@@ -9,11 +9,14 @@ import 'package:lottie/lottie.dart';
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
+  static Route<void> route() {
+    return MaterialPageRoute<void>(builder: (_) => const SplashScreen());
+  }
+
   @override
   State<SplashScreen> createState() {
     return _SplashScreenState();
   }
-
 }
 
 class _SplashScreenState extends State<SplashScreen>{

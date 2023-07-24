@@ -8,6 +8,10 @@ import 'widget/login_form.dart';
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
 
+  static Route<void> route() {
+    return MaterialPageRoute<void>(builder: (_) => const LoginScreen());
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
