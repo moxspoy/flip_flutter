@@ -7,5 +7,9 @@
   "loginButton": "Lanjut",
   "needHelp": "Butuh bantuan?",
   "changeLanguageTitle": "Pilih bahasa",
-  "changeLanguageSubTitle": "Mau pakai bahasa apa?"
+  "changeLanguageSubTitle": "Mau pakai bahasa apa?",
+  "otpScreenTitle": "Masukkan kode OTP",
+  "otpScreenSubtitle": "Buat mastiin ini kamu, kami kirim OTP ke nomor HP",
+  "otpScreenResend": "Kirim ulang",
+  "otpButton": "Lanjut"
 }

@@ -7,5 +7,9 @@
   "loginButton": "Continue",
   "needHelp": "Need help?",
   "changeLanguageTitle": "Change language",
-  "changeLanguageSubTitle": "Which language do you prefer?"
+  "changeLanguageSubTitle": "Which language do you prefer?",
+  "otpScreenTitle": "Enter OTP code",
+  "otpScreenSubtitle": "Just to make sure this is you, we send an OTP to phone number ",
+  "otpScreenResend": "Resend",
+  "otpButton": "Continue"
 }
