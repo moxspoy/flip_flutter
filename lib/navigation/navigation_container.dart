@@ -3,7 +3,9 @@
 // found in the LICENSE file.
 
 import 'package:adaptive_theme/adaptive_theme.dart';
+import 'package:authentication_repository/authentication_repository.dart';
 import 'package:flip/constants/navigation.dart';
+import 'package:flip/feature/authentication/bloc/authentication_bloc.dart';
 import 'package:flip/l10n/language_bloc.dart';
 import 'package:flip/screens/home/home_screen.dart';
 import 'package:flip/screens/login/login_screen.dart';
@@ -53,11 +55,9 @@ class NavigationContainer extends StatefulWidget {
 
   @override
   State<NavigationContainer> createState() => _NavigationContainerState();
-
 }
 
 class _NavigationContainerState extends State<NavigationContainer> {
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -87,6 +87,28 @@ class _NavigationContainerState extends State<NavigationContainer> {
                     ],
                     locale: state.selectedLanguage.value,
                     supportedLocales: AppLocalizations.supportedLocales,
+                    builder: (context, child) {
+                      return BlocListener<AuthenticationBloc,
+                          AuthenticationState>(
+                        listener: (context, state) {
+                          switch (state.status) {
+                            case AuthenticationStatus.authenticated:
+                              Navigator.of(context).pushAndRemoveUntil<void>(
+                                HomeScreen.route(),
+                                (route) => false,
+                              );
+                            case AuthenticationStatus.unauthenticated:
+                              Navigator.of(context).pushAndRemoveUntil<void>(
+                                LoginScreen.route(),
+                                (route) => false,
+                              );
+                            case AuthenticationStatus.unknown:
+                              break;
+                          }
+                        },
+                        child: child,
+                      );
+                    },
                   ));
         },
       ),
@@ -99,4 +121,3 @@ class _NavigationContainerState extends State<NavigationContainer> {
     );
   }
 }
-
