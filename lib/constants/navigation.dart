@@ -1,5 +1,5 @@
 class NavigationRouteName {
-  static const splash = 'splash';
+  static const splash = '/';
   static const login = 'login';
   static const register = 'register';
   static const home = 'home';
@@ -15,6 +15,9 @@ class NavigationRouteName {
   static const webView = 'webView';
 
   static String getPath(String routeName) {
+    if (routeName.startsWith(RegExp(r'/'))) {
+      return routeName;
+    }
     return '/$routeName';
   }
 }
