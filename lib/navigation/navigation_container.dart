@@ -25,7 +25,7 @@ GoRoute generateRoute({
   GoRouterWidgetBuilder? builder,
 }) {
   return GoRoute(
-    path: NavigationRouteName.getPath(name),
+    path: name,
     name: name,
     builder: builder ??
         (BuildContext context, GoRouterState state) {
@@ -39,7 +39,7 @@ GoRoute generateRoute({
 
 /// The route configuration.
 final GoRouter _router = GoRouter(
-  initialLocation: NavigationRouteName.getPath(NavigationRouteName.splash),
+  initialLocation: NavigationRouteName.splash,
   routes: <RouteBase>[
     generateRoute(
       name: NavigationRouteName.splash,

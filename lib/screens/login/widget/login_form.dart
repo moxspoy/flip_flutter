@@ -1,9 +1,11 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
+import 'package:flip/constants/navigation.dart';
 import 'package:flip/utils/l10n/localizations.dart';
 import 'package:flip/utils/validation/validation.dart';
 import 'package:flip/widgets/animation/shake.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:go_router/go_router.dart';
 import 'package:phone_form_field/phone_form_field.dart';
 
 class LoginForm extends StatefulWidget {
@@ -57,7 +59,7 @@ class _LoginFormState extends State<LoginForm> {
             autofocus: true,
             autofillHints: const [AutofillHints.telephoneNumber],
             countrySelectorNavigator:
-            const CountrySelectorNavigator.bottomSheet(),
+                const CountrySelectorNavigator.bottomSheet(),
             defaultCountry: IsoCode.ID,
             decoration: InputDecoration(
               border: const OutlineInputBorder(),
@@ -121,10 +123,12 @@ class _LoginFormState extends State<LoginForm> {
                   setState(() {
                     _isButtonLoading = true;
                   });
-                  Future.delayed(const Duration(milliseconds: 3000), () {
+                  Future.delayed(const Duration(milliseconds: 2000), () {
                     setState(() {
                       _isButtonLoading = false;
                     });
+                    context.push(
+                        '${NavigationRouteName.otp}?phoneNumber=$_phoneNumber');
                   });
                   return;
                 }
