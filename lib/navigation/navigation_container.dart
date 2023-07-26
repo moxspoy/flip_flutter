@@ -7,6 +7,7 @@ import 'package:flip/constants/navigation.dart';
 import 'package:flip/l10n/language_bloc.dart';
 import 'package:flip/screens/home/home_screen.dart';
 import 'package:flip/screens/login/login_screen.dart';
+import 'package:flip/screens/otp/otp_screen.dart';
 import 'package:flip/screens/splash/splash_screen.dart';
 import 'package:flip/themes/colors/material_custom_colors.dart';
 import 'package:flutter/material.dart';
@@ -18,28 +19,46 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../l10n/language_state.dart';
 
+GoRoute generateRoute({
+  required String name,
+  Widget? child,
+  GoRouterWidgetBuilder? builder,
+}) {
+  return GoRoute(
+    path: NavigationRouteName.getPath(name),
+    name: name,
+    builder: builder ??
+        (BuildContext context, GoRouterState state) {
+          if (child != null) {
+            return child;
+          }
+          return Container();
+        },
+  );
+}
+
 /// The route configuration.
 final GoRouter _router = GoRouter(
   initialLocation: NavigationRouteName.getPath(NavigationRouteName.splash),
   routes: <RouteBase>[
-    GoRoute(
-      path: NavigationRouteName.getPath(NavigationRouteName.splash),
-      builder: (BuildContext context, GoRouterState state) {
-        return const SplashScreen();
-      },
+    generateRoute(
+      name: NavigationRouteName.splash,
+      child: const SplashScreen(),
     ),
-    GoRoute(
-      path: NavigationRouteName.getPath(NavigationRouteName.home),
-      builder: (BuildContext context, GoRouterState state) {
-        return const HomeScreen();
-      },
+    generateRoute(
+      name: NavigationRouteName.home,
+      child: const HomeScreen(),
     ),
-    GoRoute(
-      path: NavigationRouteName.getPath(NavigationRouteName.login),
-      builder: (BuildContext context, GoRouterState state) {
-        return const LoginScreen();
-      },
+    generateRoute(
+      name: NavigationRouteName.login,
+      child: const LoginScreen(),
     ),
+    generateRoute(
+        name: NavigationRouteName.otp,
+        builder: (BuildContext context, GoRouterState state) {
+          final phoneNumber = state.queryParameters['phoneNumber']!;
+          return OtpScreen(phoneNumber: phoneNumber);
+        }),
   ],
 );
 
@@ -53,11 +72,9 @@ class NavigationContainer extends StatefulWidget {
 
   @override
   State<NavigationContainer> createState() => _NavigationContainerState();
-
 }
 
 class _NavigationContainerState extends State<NavigationContainer> {
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -99,4 +116,3 @@ class _NavigationContainerState extends State<NavigationContainer> {
     );
   }
 }
-
