@@ -150,7 +150,7 @@ class _LoginFormState extends State<LoginForm> {
                       width: 16,
                       child: Center(
                           child: CircularProgressIndicator(
-                        color: Theme.of(context).hintColor,
+                        color: Theme.of(context).dialogBackgroundColor,
                         strokeWidth: 1.5,
                       )))
                   : Text(getText(context)!.loginButton),
