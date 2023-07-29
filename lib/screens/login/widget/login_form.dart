@@ -8,6 +8,8 @@ import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:phone_form_field/phone_form_field.dart';
 
+import '../../../widgets/button/button.dart';
+
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
 
@@ -108,57 +110,45 @@ class _LoginFormState extends State<LoginForm> {
                     }),
               ],
             ),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                minimumSize: const Size.fromHeight(50),
-              ),
-              onPressed: () {
-                if (!_isTermChecked) {
-                  HapticFeedback.vibrate();
-                  _termConditionText.currentState?.shake();
-                  return;
-                }
-                String validationMessage = validateMobile(_phoneNumber);
-                if (validationMessage.isEmpty) {
-                  setState(() {
-                    _isButtonLoading = true;
-                  });
-                  Future.delayed(const Duration(milliseconds: 2000), () {
-                    setState(() {
-                      _isButtonLoading = false;
-                    });
-                    context.push(
-                        '${NavigationRouteName.otp}?phoneNumber=$_phoneNumber');
-                  });
-                  return;
-                }
-                HapticFeedback.vibrate();
-                SnackBar snackBar = SnackBar(
-                  content: Text(
-                    validationMessage,
-                    style: AdaptiveTheme.of(context).theme.textTheme.bodyMedium,
-                  ),
-                  backgroundColor:
-                      AdaptiveTheme.of(context).theme.colorScheme.background,
-                );
-                ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                return;
-              },
-              child: _isButtonLoading
-                  ? SizedBox(
-                      height: 16,
-                      width: 16,
-                      child: Center(
-                          child: CircularProgressIndicator(
-                        color: Theme.of(context).dialogBackgroundColor,
-                        strokeWidth: 1.5,
-                      )))
-                  : Text(getText(context)!.loginButton),
+            CustomButton(
+              onPressed: onButtonPressed,
+              isLoading: _isButtonLoading,
+              child: Text(getText(context)!.loginButton),
             ),
-            const SizedBox(height: 32)
+            const SizedBox(height: 24)
           ],
         )
       ],
     );
+  }
+
+  void onButtonPressed() {
+    if (!_isTermChecked) {
+      HapticFeedback.vibrate();
+      _termConditionText.currentState?.shake();
+      return;
+    }
+    String validationMessage = validateMobile(_phoneNumber);
+    if (validationMessage.isEmpty) {
+      setState(() {
+        _isButtonLoading = true;
+      });
+      Future.delayed(const Duration(milliseconds: 2000), () {
+        setState(() {
+          _isButtonLoading = false;
+        });
+        context.push('${NavigationRouteName.otp}?phoneNumber=$_phoneNumber');
+      });
+      return;
+    }
+    HapticFeedback.vibrate();
+    SnackBar snackBar = SnackBar(
+      content: Text(
+        validationMessage,
+        style: AdaptiveTheme.of(context).theme.textTheme.bodyMedium,
+      ),
+      backgroundColor: AdaptiveTheme.of(context).theme.colorScheme.background,
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 }
