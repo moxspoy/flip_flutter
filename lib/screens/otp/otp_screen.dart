@@ -1,8 +1,8 @@
 import 'package:flip/constants/navigation.dart';
-import 'package:flip/themes/text/custom_text_style.dart';
 import 'package:flip/utils/l10n/localizations.dart';
 import 'package:flip/widgets/appbar/appbar.dart';
 import 'package:flip/widgets/button/button.dart';
+import 'package:flip/widgets/text/text.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -39,9 +39,8 @@ class _OtpState extends State<OtpScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const SizedBox(height: 42),
-                    Text(
+                    HeadlineText(
                       getText(context)!.otpScreenTitle,
-                      style: CustomTextStyle.headlineLarge(context),
                     ),
                     const SizedBox(height: 12),
                     Text(
