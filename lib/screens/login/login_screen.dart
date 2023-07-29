@@ -1,6 +1,6 @@
-import 'package:flip/themes/text/custom_text_style.dart';
 import 'package:flip/utils/l10n/localizations.dart';
 import 'package:flip/widgets/appbar/appbar.dart';
+import 'package:flip/widgets/text/text.dart';
 import 'package:flutter/material.dart';
 
 import 'widget/login_form.dart';
@@ -25,10 +25,7 @@ class LoginScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const SizedBox(height: 42),
-                    Text(
-                      getText(context)!.loginScreenTitle,
-                      style: CustomTextStyle.headlineLarge(context),
-                    ),
+                    HeadlineText(getText(context)!.loginScreenTitle),
                     const SizedBox(height: 12),
                     Text(
                       getText(context)!.loginScreenSubtitle,
