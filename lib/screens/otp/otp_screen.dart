@@ -4,14 +4,19 @@ import 'package:flip/widgets/appbar/appbar.dart';
 import 'package:flip/widgets/button/button.dart';
 import 'package:flutter/material.dart';
 
-class OtpScreen extends StatelessWidget {
-  final String phoneNumber;
-
+class OtpScreen extends StatefulWidget {
   const OtpScreen({
     required this.phoneNumber,
     Key? key,
   }) : super(key: key);
 
+  final String phoneNumber;
+
+  @override
+  State<OtpScreen> createState() => _OtpState();
+}
+
+class _OtpState extends State<OtpScreen> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -39,7 +44,7 @@ class OtpScreen extends StatelessWidget {
                       style: Theme.of(context).textTheme.bodyMedium,
                     ),
                     Text(
-                      phoneNumber,
+                      widget.phoneNumber,
                       style: Theme.of(context).textTheme.bodyMedium,
                     ),
                     const SizedBox(height: 32),
