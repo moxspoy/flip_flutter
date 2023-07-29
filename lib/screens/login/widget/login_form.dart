@@ -113,7 +113,7 @@ class _LoginFormState extends State<LoginForm> {
             CustomButton(
               onPressed: onButtonPressed,
               isLoading: _isButtonLoading,
-              child: Text(getText(context)!.loginButton),
+              text: getText(context)!.loginButton,
             ),
             const SizedBox(height: 24)
           ],
