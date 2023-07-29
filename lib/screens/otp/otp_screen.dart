@@ -48,19 +48,35 @@ class _OtpState extends State<OtpScreen> {
                       style: Theme.of(context).textTheme.bodyMedium,
                     ),
                     const SizedBox(height: 32),
-                    TextField(
-                      onChanged: (value) {
-                        setState(() {
-                          _otp = value;
-                        });
-                      },
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'OTP',
-                      ),
-                      keyboardType: TextInputType.number,
-                      autofocus: true,
-                      maxLength: 6,
+                    Row(
+                      children: [
+                        Expanded(
+                          child: TextField(
+                            onChanged: (value) {
+                              setState(() {
+                                _otp = value;
+                              });
+                            },
+                            decoration: const InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: 'OTP',
+                            ),
+                            keyboardType: TextInputType.number,
+                            autofocus: true,
+                            maxLength: 6,
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 16,
+                        ),
+                        const SizedBox(
+                          height: 50,
+                          child: Text(
+                            "0:20",
+                            style: TextStyle(fontSize: 18),
+                          ),
+                        ),
+                      ],
                     )
                   ],
                 ),
