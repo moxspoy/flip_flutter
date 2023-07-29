@@ -1,8 +1,10 @@
+import 'package:flip/constants/navigation.dart';
 import 'package:flip/themes/text/custom_text_style.dart';
 import 'package:flip/utils/l10n/localizations.dart';
 import 'package:flip/widgets/appbar/appbar.dart';
 import 'package:flip/widgets/button/button.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class OtpScreen extends StatefulWidget {
   const OtpScreen({
@@ -17,6 +19,9 @@ class OtpScreen extends StatefulWidget {
 }
 
 class _OtpState extends State<OtpScreen> {
+  String _otp = '';
+  bool _isLoading = false;
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -40,27 +45,56 @@ class _OtpState extends State<OtpScreen> {
                     ),
                     const SizedBox(height: 12),
                     Text(
-                      getText(context)!.otpScreenSubtitle,
-                      style: Theme.of(context).textTheme.bodyMedium,
-                    ),
-                    Text(
-                      widget.phoneNumber,
+                      '${getText(context)!.otpScreenSubtitle} ${widget.phoneNumber}',
                       style: Theme.of(context).textTheme.bodyMedium,
                     ),
                     const SizedBox(height: 32),
+                    TextField(
+                      onChanged: (value) {
+                        setState(() {
+                          _otp = value;
+                        });
+                      },
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'OTP',
+                      ),
+                      keyboardType: TextInputType.number,
+                      autofocus: true,
+                      maxLength: 6,
+                    )
                   ],
                 ),
                 Expanded(
                   child: Container(),
                 ),
                 CustomButton(
-                    onPressed: () {}, child: Text(getText(context)!.otpButton)),
+                    onPressed: onButtonPressed,
+                    isLoading: _isLoading,
+                    child: Text(getText(context)!.otpButton)),
                 const SizedBox(
                   height: 24,
-                )
+                ),
               ],
             ),
           )),
     );
+  }
+
+  void onButtonPressed() {
+    if (_otp.isEmpty) {
+      return;
+    }
+    if (_otp.length < 6) {
+      return;
+    }
+    setState(() {
+      _isLoading = true;
+    });
+
+    // TODO request to API
+    Future.delayed(const Duration(seconds: 2)).then((value) {
+      context.go(NavigationRouteName.home);
+    });
   }
 }
