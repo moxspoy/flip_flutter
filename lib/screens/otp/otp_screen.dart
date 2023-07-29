@@ -1,6 +1,7 @@
 import 'package:flip/themes/text/custom_text_style.dart';
 import 'package:flip/utils/l10n/localizations.dart';
 import 'package:flip/widgets/appbar/appbar.dart';
+import 'package:flip/widgets/button/button.dart';
 import 'package:flutter/material.dart';
 
 class OtpScreen extends StatelessWidget {
@@ -45,9 +46,12 @@ class OtpScreen extends StatelessWidget {
                   ],
                 ),
                 Expanded(
-                  child: ElevatedButton(
-                      onPressed: () {},
-                      child: Text(getText(context)!.otpButton)),
+                  child: Container(),
+                ),
+                CustomButton(
+                    onPressed: () {}, child: Text(getText(context)!.otpButton)),
+                const SizedBox(
+                  height: 24,
                 )
               ],
             ),
