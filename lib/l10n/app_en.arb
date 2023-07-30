@@ -11,5 +11,22 @@
   "otpScreenTitle": "Enter OTP code",
   "otpScreenSubtitle": "Just to make sure this is you, we send an OTP to phone number ",
   "otpScreenResend": "Resend",
-  "otpButton": "Continue"
+  "otpButton": "Continue",
+  "signUpNameTitle": "Hi, you are new here. May I know your name?",
+  "signUpNameSubTitle": "You can use nicknames, the important thing is don't use numbers, special characters, and/or emojis",
+  "signUpNameLabel": "Name",
+  "signUpNameHint": "Example: Galih Pambudi",
+  "signUpEmailTitle": "Enter your email to access your account",
+  "signUpEmailSubTitle": "If you lose your phone or can't log in, we'll send an email to recover your account. You will also get proof of payment.",
+  "signUpEmailHint": "name@email.com",
+  "continueButton": "Continue",
+  "setupPinTitle": "Setup PIN",
+  "setupPinSubtitle": "PIN makes paying and logging in a secure way. Choose a unique PIN and don't share it with anyone",
+  "confirmPinTitle": "Confirm PIN",
+  "confirmPinSubtitle": "OK, now please re-type your PIN",
+  "confirmPinDifferentError": "The PIN is different from before. Please try again.",
+  "otpPinTitle": "Almost done",
+  "otpPinSubtitle": "All you have to do is enter the OTP code that we will text to {phoneNumber}",
+  "otpPinHelp": "There is a problem? Find help here",
+  "confirmButton": "Confirm"
 }
