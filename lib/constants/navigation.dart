@@ -2,6 +2,7 @@ class NavigationRouteName {
   static const splash = '/';
   static const login = '/login';
   static const register = '/register';
+  static const onBoardingName = '/onboarding-name';
   static const home = '/home';
   static const pin = '/pin';
   static const otp = '/otp';
