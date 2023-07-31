@@ -147,7 +147,7 @@ class _OtpState extends State<OtpScreen> {
 
     // TODO request to API
     Future.delayed(const Duration(seconds: 2)).then((value) {
-      context.go(NavigationRouteName.home);
+      context.push(NavigationRouteName.onBoardingName);
     });
   }
 }
