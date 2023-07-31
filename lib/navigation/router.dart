@@ -1,5 +1,6 @@
 import 'package:flip/constants/navigation.dart';
 import 'package:flip/screens/home/home_screen.dart';
+import 'package:flip/screens/onboarding_name/onboarding_name_screen.dart';
 import 'package:flip/screens/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -41,6 +42,10 @@ class NavigationRouter {
       generateRoute(
         name: NavigationRouteName.login,
         child: const LoginScreen(),
+      ),
+      generateRoute(
+        name: NavigationRouteName.onBoardingName,
+        child: const OnBoardingNameScreen(),
       ),
       generateRoute(
           name: NavigationRouteName.otp,
