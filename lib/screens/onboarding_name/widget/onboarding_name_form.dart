@@ -31,7 +31,6 @@ class _OnboardingNameFormState extends State<OnboardingNameForm> {
     return Column(
       children: [
         SizedBox(
-          height: 180,
           child: TextField(
             onChanged: (value) {
               setState(() {
