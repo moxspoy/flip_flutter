@@ -3,6 +3,9 @@ class NavigationRouteName {
   static const login = '/login';
   static const register = '/register';
   static const onBoardingName = '/onboarding-name';
+  static const onBoardingSetupPin = '/onboarding-setup-pin';
+  static const onBoardingConfirmPin = '/onboarding-confirm-pin';
+  static const onBoardingOtpPin = '/onboarding-otp-pin';
   static const home = '/home';
   static const pin = '/pin';
   static const otp = '/otp';
