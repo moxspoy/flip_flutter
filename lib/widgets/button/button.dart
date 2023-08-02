@@ -21,7 +21,7 @@ class CustomButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: onPressed,
+      onPressed: isDisabled == true ? null : onPressed,
       style: customStyle ??
           ElevatedButton.styleFrom(minimumSize: const Size.fromHeight(50)),
       child: isLoading == true
