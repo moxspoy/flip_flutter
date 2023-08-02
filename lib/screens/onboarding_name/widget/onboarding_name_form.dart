@@ -14,7 +14,6 @@ class OnboardingNameForm extends StatefulWidget {
 
 class _OnboardingNameFormState extends State<OnboardingNameForm> {
   String _name = '';
-  bool _isButtonLoading = false;
 
   @override
   initState() {
@@ -46,7 +45,6 @@ class _OnboardingNameFormState extends State<OnboardingNameForm> {
         const Expanded(child: SizedBox()),
         CustomButton(
           onPressed: onButtonPressed,
-          isLoading: _isButtonLoading,
           text: getText(context)!.continueButton,
         ),
       ],
@@ -60,13 +58,7 @@ class _OnboardingNameFormState extends State<OnboardingNameForm> {
     if (_name.length < 3) {
       return;
     }
-    setState(() {
-      _isButtonLoading = true;
-    });
 
-    // TODO request to API
-    Future.delayed(const Duration(seconds: 2)).then((value) {
-      context.go(NavigationRouteName.home);
-    });
+    context.push('${NavigationRouteName.onBoardingSetupPin}?name=$_name');
   }
 }
