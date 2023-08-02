@@ -6,7 +6,7 @@ class CustomButton extends StatelessWidget {
     required this.onPressed,
     this.child,
     this.isLoading = false,
-    this.isExpanded = false,
+    this.isDisabled = false,
     this.text = '',
     this.customStyle,
   });
@@ -14,7 +14,7 @@ class CustomButton extends StatelessWidget {
   final VoidCallback? onPressed;
   final Widget? child;
   final bool? isLoading;
-  final bool? isExpanded;
+  final bool? isDisabled;
   final ButtonStyle? customStyle;
   final String? text;
 
