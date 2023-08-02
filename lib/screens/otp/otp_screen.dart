@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flip/constants/navigation.dart';
 import 'package:flip/utils/l10n/localizations.dart';
 import 'package:flip/widgets/appbar/appbar.dart';
@@ -27,13 +29,18 @@ class _OtpState extends State<OtpScreen> {
   final int _start = 59;
   int _current = 59;
 
+  StreamSubscription<CountdownTimer> sub = CountdownTimer(
+    const Duration(seconds: 59),
+    const Duration(seconds: 1),
+  ).listen(null);
+
   void startTimer() {
     CountdownTimer countDownTimer = CountdownTimer(
       Duration(seconds: _start),
       const Duration(seconds: 1),
     );
 
-    var sub = countDownTimer.listen(null);
+    sub = countDownTimer.listen(null);
     sub.onData((duration) {
       setState(() {
         _current = _start - duration.elapsed.inSeconds;
@@ -49,6 +56,12 @@ class _OtpState extends State<OtpScreen> {
   void initState() {
     super.initState();
     startTimer();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    sub.cancel();
   }
 
   @override
@@ -103,16 +116,16 @@ class _OtpState extends State<OtpScreen> {
                           width: 50,
                           child: _current > 0
                               ? Text(
-                                  "0:${_current.toString()}",
-                                )
+                            "0:${_current.toString()}",
+                          )
                               : InkWell(
-                                  highlightColor: Colors.transparent,
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(10)),
-                                  onTap: startTimer,
-                                  child:
-                                      Text(getText(context)!.otpScreenResend),
-                                ),
+                            highlightColor: Colors.transparent,
+                            borderRadius: const BorderRadius.all(
+                                Radius.circular(10)),
+                            onTap: startTimer,
+                            child:
+                            Text(getText(context)!.otpScreenResend),
+                          ),
                         ),
                       ],
                     )
@@ -148,6 +161,9 @@ class _OtpState extends State<OtpScreen> {
     // TODO request to API
     Future.delayed(const Duration(seconds: 2)).then((value) {
       context.push(NavigationRouteName.onBoardingName);
+      setState(() {
+        _isLoading = false;
+      });
     });
   }
 }
