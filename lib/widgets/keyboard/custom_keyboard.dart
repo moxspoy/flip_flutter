@@ -7,6 +7,7 @@ class CustomKeyboard extends StatelessWidget {
   final void Function(String key)? onPressKey;
 
   static const String deleteKey = 'DEL';
+  static const String noneKey = '';
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +40,7 @@ class CustomKeyboard extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Expanded(child: PressableItem(value: '', onPress: onPressKey)),
+            Expanded(child: PressableItem(value: noneKey, onPress: onPressKey)),
             Expanded(child: PressableItem(value: '0', onPress: onPressKey)),
             Expanded(
                 child: PressableItem(value: deleteKey, onPress: onPressKey)),
