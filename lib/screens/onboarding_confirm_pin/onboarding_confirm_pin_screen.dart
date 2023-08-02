@@ -5,10 +5,19 @@ import 'package:go_router/go_router.dart';
 
 import '../../widgets/pin/pin_form.dart';
 
-class OnBoardingConfirmPinScreen extends StatelessWidget {
+class OnBoardingConfirmPinScreen extends StatefulWidget {
   const OnBoardingConfirmPinScreen({super.key, this.previousPin = ''});
 
   final String? previousPin;
+
+  @override
+  State<OnBoardingConfirmPinScreen> createState() =>
+      _OnBoardingConfirmPinScreenState();
+}
+
+class _OnBoardingConfirmPinScreenState
+    extends State<OnBoardingConfirmPinScreen> {
+  String _errorMessage = '';
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +47,7 @@ class OnBoardingConfirmPinScreen extends StatelessWidget {
                   onComplete: (String pin) => onPinComplete(context, pin),
                   onButtonPressed: (String pin) =>
                       onButtonPinPressed(context, pin),
+                  errorMessage: _errorMessage,
                 ))
               ],
             ),
@@ -50,7 +60,16 @@ class OnBoardingConfirmPinScreen extends StatelessWidget {
   }
 
   void onButtonPinPressed(BuildContext context, String pin) {
-    // TODO request to API
+    if (widget.previousPin == pin) {
+      handleValidPin(context, pin);
+    } else {
+      setState(() {
+        _errorMessage = getText(context)!.confirmPinDifferentError;
+      });
+    }
+  }
+
+  void handleValidPin(BuildContext context, String pin) {
     context.go('${NavigationRouteName.home}?pin=$pin');
   }
 }
