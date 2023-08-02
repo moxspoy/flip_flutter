@@ -4,12 +4,18 @@ import 'package:flip/widgets/pin/pin_view.dart';
 import 'package:flutter/material.dart';
 
 import '../button/button.dart';
+import '../text/text.dart';
 
 class PinForm extends StatefulWidget {
-  const PinForm({super.key, this.onComplete, this.onButtonPressed});
+  const PinForm(
+      {super.key,
+      this.onComplete,
+      this.onButtonPressed,
+      this.errorMessage = ''});
 
   final void Function(String pin)? onComplete;
   final void Function(String pin)? onButtonPressed;
+  final String errorMessage;
 
   @override
   State<PinForm> createState() => _PinFormState();
@@ -35,6 +41,12 @@ class _PinFormState extends State<PinForm> {
         PinView(
           pin: _pin,
         ),
+        const SizedBox(
+          height: 8,
+        ),
+        widget.errorMessage.length > 1
+            ? ErrorText(widget.errorMessage)
+            : Container(),
         const Expanded(child: SizedBox()),
         CustomButton(
           onPressed: onButtonPressed,
