@@ -18,4 +18,14 @@ class CustomTextStyle {
             ? CustomColor.blackBekko
             : CustomColor.white);
   }
+
+  static TextStyle? pinText(BuildContext context) {
+    TextTheme existingTextTheme = Theme.of(context).textTheme;
+
+    return existingTextTheme.titleLarge?.copyWith(
+        fontWeight: FontWeight.w700,
+        color: AdaptiveTheme.of(context).brightness == Brightness.light
+            ? CustomColor.blackBekko
+            : CustomColor.white);
+  }
 }
