@@ -113,6 +113,7 @@ class _LoginFormState extends State<LoginForm> {
             CustomButton(
               onPressed: onButtonPressed,
               isLoading: _isButtonLoading,
+              isDisabled: validateMobile(_phoneNumber).isNotEmpty,
               text: getText(context)!.loginButton,
             ),
             const SizedBox(height: 24)
