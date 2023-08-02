@@ -1,6 +1,8 @@
 import 'package:flip/constants/navigation.dart';
 import 'package:flip/screens/home/home_screen.dart';
+import 'package:flip/screens/onboarding_confirm_pin/onboarding_confirm_pin_screen.dart';
 import 'package:flip/screens/onboarding_name/onboarding_name_screen.dart';
+import 'package:flip/screens/onboarding_setup_pin/onboarding_setup_pin_screen.dart';
 import 'package:flip/screens/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -44,9 +46,22 @@ class NavigationRouter {
         child: const LoginScreen(),
       ),
       generateRoute(
-        name: NavigationRouteName.onBoardingName,
-        child: const OnBoardingNameScreen(),
-      ),
+          name: NavigationRouteName.onBoardingName,
+          builder: (BuildContext context, GoRouterState state) {
+            return const OnBoardingNameScreen();
+          }),
+      generateRoute(
+          name: NavigationRouteName.onBoardingSetupPin,
+          builder: (BuildContext context, GoRouterState state) {
+            final name = state.queryParameters['name']!;
+            return OnBoardingSetupPinScreen(name: name);
+          }),
+      generateRoute(
+          name: NavigationRouteName.onBoardingConfirmPin,
+          builder: (BuildContext context, GoRouterState state) {
+            final previousPin = state.queryParameters['pin']!;
+            return OnBoardingConfirmPinScreen(previousPin: previousPin);
+          }),
       generateRoute(
           name: NavigationRouteName.otp,
           builder: (BuildContext context, GoRouterState state) {
