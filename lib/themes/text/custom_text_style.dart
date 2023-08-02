@@ -28,4 +28,10 @@ class CustomTextStyle {
             ? CustomColor.blackBekko
             : CustomColor.white);
   }
+
+  static TextStyle? errorText(BuildContext context) {
+    TextTheme existingTextTheme = Theme.of(context).textTheme;
+
+    return existingTextTheme.bodyMedium?.copyWith(color: Colors.redAccent);
+  }
 }
