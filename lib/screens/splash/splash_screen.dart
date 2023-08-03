@@ -17,7 +17,7 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen>{
-  ConnectivityResult _connectionStatus = ConnectivityResult.none;
+  ConnectivityResult _connectionStatus = ConnectivityResult.mobile;
   final Connectivity _connectivity = Connectivity();
   late StreamSubscription<ConnectivityResult> _connectivitySubscription;
 
@@ -27,11 +27,11 @@ class _SplashScreenState extends State<SplashScreen>{
     initConnectivity();
     _connectivitySubscription =
         _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
-
   }
 
   @override
   Widget build(BuildContext context) {
+    debugPrint(_connectionStatus.name);
     if (_connectionStatus == ConnectivityResult.none) {
       return const Text('Error bos');
     }
