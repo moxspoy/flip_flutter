@@ -1,8 +1,11 @@
 import 'dart:async';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:flip/blocs/user/user_bloc.dart';
+import 'package:flip/constants/navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
 
@@ -13,10 +16,9 @@ class SplashScreen extends StatefulWidget {
   State<SplashScreen> createState() {
     return _SplashScreenState();
   }
-
 }
 
-class _SplashScreenState extends State<SplashScreen>{
+class _SplashScreenState extends State<SplashScreen> {
   ConnectivityResult _connectionStatus = ConnectivityResult.mobile;
   final Connectivity _connectivity = Connectivity();
   late StreamSubscription<ConnectivityResult> _connectivitySubscription;
@@ -63,8 +65,17 @@ class _SplashScreenState extends State<SplashScreen>{
         // delay 2s, move to other screen
         Future.delayed(const Duration(milliseconds: 500), () {
           // Navigate to other screen
-          context.go('/login');
 
+          UserState userState = BlocProvider.of<UserBloc>(context).state;
+          if (userState is UserDataState) {
+            if (userState.phoneNumber!.isNotEmpty) {
+              context.go(
+                  '${NavigationRouteName.otp}?phoneNumber=${userState.phoneNumber}');
+              return;
+            }
+          }
+
+          context.go(NavigationRouteName.login);
         });
       }
     } on PlatformException catch (_) {

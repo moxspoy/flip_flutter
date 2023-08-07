@@ -1,10 +1,12 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
+import 'package:flip/blocs/user/user_bloc.dart';
 import 'package:flip/constants/navigation.dart';
 import 'package:flip/utils/l10n/localizations.dart';
 import 'package:flip/utils/validation/validation.dart';
 import 'package:flip/widgets/animation/shake.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:phone_form_field/phone_form_field.dart';
 
@@ -53,74 +55,76 @@ class _LoginFormState extends State<LoginForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        AutofillGroup(
-          child: PhoneFormField(
-            controller: _phoneController,
-            autofocus: true,
-            autofillHints: const [AutofillHints.telephoneNumber],
-            countrySelectorNavigator:
-                const CountrySelectorNavigator.bottomSheet(),
-            defaultCountry: IsoCode.ID,
-            decoration: InputDecoration(
-              border: const OutlineInputBorder(),
-              hintText: getText(context)!.loginScreenFieldPhoneNumberHint,
+    return BlocBuilder<UserBloc, UserState>(builder: (context, state) {
+      return Column(
+        children: [
+          AutofillGroup(
+            child: PhoneFormField(
+              controller: _phoneController,
+              autofocus: true,
+              autofillHints: const [AutofillHints.telephoneNumber],
+              countrySelectorNavigator:
+                  const CountrySelectorNavigator.bottomSheet(),
+              defaultCountry: IsoCode.ID,
+              decoration: InputDecoration(
+                border: const OutlineInputBorder(),
+                hintText: getText(context)!.loginScreenFieldPhoneNumberHint,
+              ),
+              enabled: true,
+              showFlagInInput: true,
+              validator: _getValidator(),
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              cursorColor: Theme.of(context).colorScheme.primary,
+              // ignore: avoid_print
+              onSaved: (p) => print('saved $p'),
+              // ignore: avoid_print
+              onChanged: (p) => {
+                setState(() {
+                  _phoneNumber = '+${p?.countryCode}${p?.nsn}';
+                })
+              },
             ),
-            enabled: true,
-            showFlagInInput: true,
-            validator: _getValidator(),
-            autovalidateMode: AutovalidateMode.onUserInteraction,
-            cursorColor: Theme.of(context).colorScheme.primary,
-            // ignore: avoid_print
-            onSaved: (p) => print('saved $p'),
-            // ignore: avoid_print
-            onChanged: (p) => {
-              setState(() {
-                _phoneNumber = '+${p?.countryCode}${p?.nsn}';
-              })
-            },
           ),
-        ),
-        const Expanded(child: SizedBox()),
-        Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  flex: 5,
-                  child: CustomShakeWidget(
-                    key: _termConditionText,
-                    duration: const Duration(milliseconds: 500),
-                    shakeCount: 4,
-                    shakeOffset: 8,
-                    child: Text(
-                      getText(context)!.loginScreenTerm,
-                      style: Theme.of(context).textTheme.bodySmall,
+          const Expanded(child: SizedBox()),
+          Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    flex: 5,
+                    child: CustomShakeWidget(
+                      key: _termConditionText,
+                      duration: const Duration(milliseconds: 500),
+                      shakeCount: 4,
+                      shakeOffset: 8,
+                      child: Text(
+                        getText(context)!.loginScreenTerm,
+                        style: Theme.of(context).textTheme.bodySmall,
+                      ),
                     ),
                   ),
-                ),
-                Checkbox(
-                    value: _isTermChecked,
-                    onChanged: (newValue) {
-                      setState(() {
-                        _isTermChecked = newValue!;
-                      });
-                    }),
-              ],
-            ),
-            CustomButton(
-              onPressed: onButtonPressed,
-              isLoading: _isButtonLoading,
-              isDisabled: validateMobile(_phoneNumber).isNotEmpty,
-              text: getText(context)!.loginButton,
-            ),
-            const SizedBox(height: 24)
-          ],
-        )
-      ],
-    );
+                  Checkbox(
+                      value: _isTermChecked,
+                      onChanged: (newValue) {
+                        setState(() {
+                          _isTermChecked = newValue!;
+                        });
+                      }),
+                ],
+              ),
+              CustomButton(
+                onPressed: onButtonPressed,
+                isLoading: _isButtonLoading,
+                isDisabled: validateMobile(_phoneNumber).isNotEmpty,
+                text: getText(context)!.loginButton,
+              ),
+              const SizedBox(height: 24)
+            ],
+          )
+        ],
+      );
+    });
   }
 
   void onButtonPressed() {
@@ -138,6 +142,7 @@ class _LoginFormState extends State<LoginForm> {
         setState(() {
           _isButtonLoading = false;
         });
+        context.read<UserBloc>().add(UserUpdatePhoneNumber(_phoneNumber));
         context.push('${NavigationRouteName.otp}?phoneNumber=$_phoneNumber');
       });
       return;

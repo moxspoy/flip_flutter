@@ -3,6 +3,7 @@
 // found in the LICENSE file.
 
 import 'package:adaptive_theme/adaptive_theme.dart';
+import 'package:flip/blocs/user/user_bloc.dart';
 import 'package:flip/l10n/language_bloc.dart';
 import 'package:flip/navigation/router.dart';
 import 'package:flip/themes/colors/material_custom_colors.dart';
@@ -29,8 +30,11 @@ class ApplicationContainer extends StatefulWidget {
 class _ApplicationContainerState extends State<ApplicationContainer> {
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => LanguageBloc(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => LanguageBloc()),
+        BlocProvider(create: (context) => UserBloc()),
+      ],
       child: BlocBuilder<LanguageBloc, LanguageState>(
         builder: (context, state) {
           return AdaptiveTheme(
