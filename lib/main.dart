@@ -1,4 +1,6 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flip/firebase_options.dart';
 import 'package:flip/navigation/navigation_container.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +11,10 @@ import 'package:path_provider/path_provider.dart';
 
 Future main() async {
   await dotenv.load(fileName: '.env.domestic');
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
   LicenseRegistry.addLicense(() async* {
     final license = await rootBundle.loadString('assets/google_fonts/OFL.txt');
