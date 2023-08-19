@@ -1,0 +1,90 @@
+{
+  "project_info": {
+    "project_number": "1029615796436",
+    "project_id": "goflip-3b295",
+    "storage_bucket": "goflip-3b295.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1029615796436:android:717ee3196cf8a41e7a7b41",
+        "android_client_info": {
+          "package_name": "id.flip.flip"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1029615796436-lf02nehtivcvk3hph9vt8k2l7pp6kter.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAu_Wpg_wuynSMblY8F3PzQPlwJBvj4rLU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1029615796436-lf02nehtivcvk3hph9vt8k2l7pp6kter.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1029615796436-3c1ugnrovpiri5l6tsjss79dg9f3b85a.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "id.flip.flip"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1029615796436:android:ee63e43ce40d492e7a7b41",
+        "android_client_info": {
+          "package_name": "id.flip.flip.debug"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1029615796436-5brl3r0pobt5oak9ghmu5ihmo5p8e9dg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "id.flip.flip.debug",
+            "certificate_hash": "e340eed687ef9dd40749cffef201b0d077e101a4"
+          }
+        },
+        {
+          "client_id": "1029615796436-lf02nehtivcvk3hph9vt8k2l7pp6kter.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAu_Wpg_wuynSMblY8F3PzQPlwJBvj4rLU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1029615796436-lf02nehtivcvk3hph9vt8k2l7pp6kter.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1029615796436-3c1ugnrovpiri5l6tsjss79dg9f3b85a.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "id.flip.flip"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
