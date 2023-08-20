@@ -1,4 +1,5 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flip/blocs/user/user_bloc.dart';
 import 'package:flip/constants/navigation.dart';
 import 'package:flip/utils/l10n/localizations.dart';
@@ -127,6 +128,49 @@ class _LoginFormState extends State<LoginForm> {
     });
   }
 
+  void handleError(String message) {
+    HapticFeedback.vibrate();
+    SnackBar snackBar = SnackBar(
+      content: Text(
+        message,
+        style: AdaptiveTheme.of(context).theme.textTheme.bodyMedium,
+      ),
+      backgroundColor: AdaptiveTheme.of(context).theme.colorScheme.background,
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
+  Future<void> onVerificationCompleted(PhoneAuthCredential credential) async {
+    setState(() {
+      _isButtonLoading = false;
+    });
+    context.push('${NavigationRouteName.otp}?phoneNumber=$_phoneNumber');
+
+    // ANDROID ONLY!
+    // Sign the user in (or link) with the auto-generated credential
+    await FirebaseAuth.instance.signInWithCredential(credential);
+  }
+
+  void onVerificationFailed(FirebaseAuthException firebaseAuthException) {
+    handleError(firebaseAuthException.message ?? firebaseAuthException.code);
+  }
+
+  void onCodeSent(String verificationId, int? resendToken) {
+    goToVerificationScreen(verificationId);
+  }
+
+  void onCodeAutoRetrievalTimeout(String verificationId) {
+    goToVerificationScreen(verificationId);
+  }
+
+  void goToVerificationScreen(String verificationId) {
+    // Update the UI - wait for the user to enter the SMS code
+    context.read<UserBloc>().add(UserUpdatePhoneNumber(_phoneNumber));
+    String navigation =
+        '${NavigationRouteName.otp}?phoneNumber=$_phoneNumber&verificationId=$verificationId';
+    context.push(navigation);
+  }
+
   void onButtonPressed() {
     if (!_isTermChecked) {
       HapticFeedback.vibrate();
@@ -138,23 +182,15 @@ class _LoginFormState extends State<LoginForm> {
       setState(() {
         _isButtonLoading = true;
       });
-      Future.delayed(const Duration(milliseconds: 2000), () {
-        setState(() {
-          _isButtonLoading = false;
-        });
-        context.read<UserBloc>().add(UserUpdatePhoneNumber(_phoneNumber));
-        context.push('${NavigationRouteName.otp}?phoneNumber=$_phoneNumber');
-      });
+      FirebaseAuth.instance.verifyPhoneNumber(
+        verificationCompleted: onVerificationCompleted,
+        verificationFailed: onVerificationFailed,
+        codeSent: onCodeSent,
+        codeAutoRetrievalTimeout: onCodeAutoRetrievalTimeout,
+        phoneNumber: _phoneNumber,
+      );
       return;
     }
-    HapticFeedback.vibrate();
-    SnackBar snackBar = SnackBar(
-      content: Text(
-        validationMessage,
-        style: AdaptiveTheme.of(context).theme.textTheme.bodyMedium,
-      ),
-      backgroundColor: AdaptiveTheme.of(context).theme.colorScheme.background,
-    );
-    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    handleError(validationMessage);
   }
 }

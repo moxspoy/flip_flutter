@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flip/constants/navigation.dart';
 import 'package:flip/utils/l10n/localizations.dart';
 import 'package:flip/widgets/appbar/appbar.dart';
@@ -12,10 +13,12 @@ import 'package:quiver/async.dart';
 class OtpScreen extends StatefulWidget {
   const OtpScreen({
     required this.phoneNumber,
+    required this.verificationId,
     Key? key,
   }) : super(key: key);
 
   final String phoneNumber;
+  final String verificationId;
 
   @override
   State<OtpScreen> createState() => _OtpState();
@@ -116,16 +119,16 @@ class _OtpState extends State<OtpScreen> {
                           width: 50,
                           child: _current > 0
                               ? Text(
-                            "0:${_current.toString()}",
-                          )
+                                  "0:${_current.toString()}",
+                                )
                               : InkWell(
-                            highlightColor: Colors.transparent,
-                            borderRadius: const BorderRadius.all(
-                                Radius.circular(10)),
-                            onTap: startTimer,
-                            child:
-                            Text(getText(context)!.otpScreenResend),
-                          ),
+                                  highlightColor: Colors.transparent,
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(10)),
+                                  onTap: startTimer,
+                                  child:
+                                      Text(getText(context)!.otpScreenResend),
+                                ),
                         ),
                       ],
                     )
@@ -147,7 +150,7 @@ class _OtpState extends State<OtpScreen> {
     );
   }
 
-  void onButtonPressed() {
+  void onButtonPressed() async {
     if (_otp.isEmpty) {
       return;
     }
@@ -158,12 +161,16 @@ class _OtpState extends State<OtpScreen> {
       _isLoading = true;
     });
 
-    // TODO request to API
-    Future.delayed(const Duration(seconds: 2)).then((value) {
-      context.push(NavigationRouteName.onBoardingName);
-      setState(() {
-        _isLoading = false;
-      });
+    // Create a PhoneAuthCredential with the code
+    PhoneAuthCredential credential = PhoneAuthProvider.credential(
+        verificationId: widget.verificationId, smsCode: _otp);
+    // Sign the user in (or link) with the credential
+    await FirebaseAuth.instance.signInWithCredential(credential);
+    setState(() {
+      _isLoading = false;
     });
+    if (context.mounted) {
+      context.push(NavigationRouteName.onBoardingName);
+    }
   }
 }
