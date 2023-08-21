@@ -1,7 +1,9 @@
 import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flip/constants/local_storage.dart';
 import 'package:flip/constants/navigation.dart';
+import 'package:flip/libraries/local_storage.dart';
 import 'package:flip/utils/l10n/localizations.dart';
 import 'package:flip/widgets/appbar/appbar.dart';
 import 'package:flip/widgets/button/button.dart';
@@ -165,7 +167,14 @@ class _OtpState extends State<OtpScreen> {
     PhoneAuthCredential credential = PhoneAuthProvider.credential(
         verificationId: widget.verificationId, smsCode: _otp);
     // Sign the user in (or link) with the credential
-    await FirebaseAuth.instance.signInWithCredential(credential);
+    UserCredential userCredential =
+        await FirebaseAuth.instance.signInWithCredential(credential);
+    String? accessToken = userCredential.credential!.accessToken;
+    if (accessToken != null) {
+      LocalStorage storage = SharedPrefs();
+      await storage.setString(LocalStorageConstant().accessToken, accessToken);
+    }
+
     setState(() {
       _isLoading = false;
     });
