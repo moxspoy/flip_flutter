@@ -173,13 +173,12 @@ class _OtpState extends State<OtpScreen> {
     if (accessToken != null) {
       LocalStorage storage = SharedPrefs();
       await storage.setString(LocalStorageConstant().accessToken, accessToken);
-    }
-
-    setState(() {
-      _isLoading = false;
-    });
-    if (context.mounted) {
-      context.push(NavigationRouteName.onBoardingName);
+      setState(() {
+        _isLoading = false;
+      });
+      if (context.mounted) {
+        context.push(NavigationRouteName.onBoardingName);
+      }
     }
   }
 }
