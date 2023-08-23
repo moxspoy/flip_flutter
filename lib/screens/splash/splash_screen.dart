@@ -1,8 +1,11 @@
 import 'dart:async';
+import 'dart:js_interop';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flip/blocs/user/user_bloc.dart';
+import 'package:flip/constants/local_storage.dart';
 import 'package:flip/constants/navigation.dart';
+import 'package:flip/libraries/local_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -66,6 +69,12 @@ class _SplashScreenState extends State<SplashScreen> {
         Future.delayed(const Duration(milliseconds: 500), () {
           // Navigate to other screen
 
+          if (SharedPrefs()
+              .getString(LocalStorageConstant().accessToken)
+              .isDefinedAndNotNull) {
+            // TODO Navigate to other screen
+            return;
+          }
           UserState userState = BlocProvider.of<UserBloc>(context).state;
           if (userState is UserDataState) {
             if (userState.phoneNumber!.isNotEmpty) {
