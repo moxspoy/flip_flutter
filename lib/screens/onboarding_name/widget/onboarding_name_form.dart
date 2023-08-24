@@ -1,6 +1,8 @@
+import 'package:flip/blocs/user/user_bloc.dart';
 import 'package:flip/constants/navigation.dart';
 import 'package:flip/utils/l10n/localizations.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../widgets/button/button.dart';
@@ -59,6 +61,7 @@ class _OnboardingNameFormState extends State<OnboardingNameForm> {
       return;
     }
 
+    context.read<UserBloc>().add(UserUpdateName(_name));
     context.push('${NavigationRouteName.onBoardingSetupPin}?name=$_name');
   }
 }
