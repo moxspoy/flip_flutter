@@ -1,7 +1,9 @@
+import 'package:flip/blocs/user/user_bloc.dart';
 import 'package:flip/utils/l10n/localizations.dart';
 import 'package:flip/widgets/keyboard/custom_keyboard.dart';
 import 'package:flip/widgets/pin/pin_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../button/button.dart';
 import '../text/text.dart';
@@ -36,30 +38,32 @@ class _PinFormState extends State<PinForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        PinView(
-          pin: _pin,
-        ),
-        const SizedBox(
-          height: 8,
-        ),
-        widget.errorMessage.length > 1
-            ? ErrorText(widget.errorMessage)
-            : Container(),
-        const Expanded(child: SizedBox()),
-        CustomButton(
-          onPressed: onButtonPressed,
-          text: getText(context)!.continueButton,
-        ),
-        const SizedBox(
-          height: 24,
-        ),
-        CustomKeyboard(
-          onPressKey: onPressKeyBoard,
-        ),
-      ],
-    );
+    return BlocBuilder<UserBloc, UserState>(builder: (context, state) {
+      return Column(
+        children: [
+          PinView(
+            pin: _pin,
+          ),
+          const SizedBox(
+            height: 8,
+          ),
+          widget.errorMessage.length > 1
+              ? ErrorText(widget.errorMessage)
+              : Container(),
+          const Expanded(child: SizedBox()),
+          CustomButton(
+            onPressed: onButtonPressed,
+            text: getText(context)!.continueButton,
+          ),
+          const SizedBox(
+            height: 24,
+          ),
+          CustomKeyboard(
+            onPressKey: onPressKeyBoard,
+          ),
+        ],
+      );
+    });
   }
 
   void onPressKeyBoard(String key) {

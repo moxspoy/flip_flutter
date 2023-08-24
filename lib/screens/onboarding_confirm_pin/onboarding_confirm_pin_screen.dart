@@ -1,8 +1,10 @@
 import 'package:flip/constants/navigation.dart';
 import 'package:flip/utils/l10n/localizations.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../blocs/user/user_bloc.dart';
 import '../../widgets/pin/pin_form.dart';
 
 class OnBoardingConfirmPinScreen extends StatefulWidget {
@@ -70,6 +72,7 @@ class _OnBoardingConfirmPinScreenState
   }
 
   void handleValidPin(BuildContext context, String pin) {
+    context.read<UserBloc>().add(UserUpdatePIN(int.parse(pin)));
     context.go('${NavigationRouteName.home}?pin=$pin');
   }
 }
