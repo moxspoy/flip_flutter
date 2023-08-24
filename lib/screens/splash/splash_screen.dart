@@ -84,6 +84,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 return;
               }
               context.go('${NavigationRouteName.home}?pin=${userState.pin}');
+              return;
             }
           }
 
