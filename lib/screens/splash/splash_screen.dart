@@ -72,15 +72,18 @@ class _SplashScreenState extends State<SplashScreen> {
           if (SharedPrefs()
               .getString(LocalStorageConstant().accessToken)
               .isDefinedAndNotNull) {
-            // TODO Navigate to other screen
-            return;
-          }
-          UserState userState = BlocProvider.of<UserBloc>(context).state;
-          if (userState is UserDataState) {
-            if (userState.phoneNumber!.isNotEmpty) {
-              context.go(
-                  '${NavigationRouteName.otp}?phoneNumber=${userState.phoneNumber}');
-              return;
+            UserState userState = BlocProvider.of<UserBloc>(context).state;
+            if (userState is UserDataState) {
+              if (userState.name!.isEmpty) {
+                context.go(NavigationRouteName.onBoardingName);
+                return;
+              }
+              if (userState.pin!.isNull) {
+                context.push(
+                    '${NavigationRouteName.onBoardingSetupPin}?name=${userState.name}');
+                return;
+              }
+              context.go('${NavigationRouteName.home}?pin=${userState.pin}');
             }
           }
 
