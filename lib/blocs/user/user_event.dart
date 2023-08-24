@@ -11,9 +11,17 @@ final class UserUpdatePhoneNumber extends UserEvent {
 
 final class UserUpdateStatus extends UserEvent {}
 
-final class UserUpdateName extends UserEvent {}
+final class UserUpdateName extends UserEvent {
+  UserUpdateName(this.name);
 
-final class UserUpdatePIN extends UserEvent {}
+  final String name;
+}
+
+final class UserUpdatePIN extends UserEvent {
+  UserUpdatePIN(this.pin);
+
+  final int pin;
+}
 
 final class UserUpdateAfterRegister extends UserEvent {}
 
