@@ -8,6 +8,7 @@ abstract class UserState extends Equatable {
 
 class UserDataState extends UserState {
   final int? id;
+  final int? pin;
   final String? phoneNumber;
   final String? name;
   final String? email;
@@ -21,6 +22,7 @@ class UserDataState extends UserState {
 
   UserDataState({
     this.id,
+    this.pin,
     this.phoneNumber,
     this.name,
     this.email,
