@@ -15,6 +15,7 @@ class NavigationRouteName {
   static const formElectricity = '/formElectricity';
   static const payment = '/payment';
   static const transactionProgress = '/transactionProgress';
+  static const editProfile = '/editProfile';
   static const profile = '/profile';
   static const webView = '/webView';
 
