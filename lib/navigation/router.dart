@@ -66,7 +66,11 @@ class NavigationRouter {
           name: NavigationRouteName.otp,
           builder: (BuildContext context, GoRouterState state) {
             final phoneNumber = state.queryParameters['phoneNumber']!;
-            return OtpScreen(phoneNumber: phoneNumber);
+            final verificationId = state.queryParameters['verificationId']!;
+            return OtpScreen(
+              phoneNumber: phoneNumber,
+              verificationId: verificationId,
+            );
           }),
     ],
   );

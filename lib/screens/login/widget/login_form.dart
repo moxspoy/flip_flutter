@@ -144,7 +144,8 @@ class _LoginFormState extends State<LoginForm> {
     setState(() {
       _isButtonLoading = false;
     });
-    context.push('${NavigationRouteName.otp}?phoneNumber=$_phoneNumber');
+    context.push(
+        '${NavigationRouteName.otp}?phoneNumber=$_phoneNumber&verificationId=${credential.verificationId}');
 
     // ANDROID ONLY!
     // Sign the user in (or link) with the auto-generated credential
