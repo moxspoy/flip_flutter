@@ -8,6 +8,10 @@ abstract class LocalStorage {
   Future<bool?> getBoolean(String key);
 
   Future<bool> setBoolean(String key, bool value);
+
+  Future<int?> getInt(String key);
+
+  Future<bool> setInt(String key, int value);
 }
 
 class SharedPrefs implements LocalStorage {
@@ -33,5 +37,17 @@ class SharedPrefs implements LocalStorage {
   Future<bool> setBoolean(String key, bool value) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     return await prefs.setBool(key, value);
+  }
+
+  @override
+  Future<int?> getInt(String key) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getInt(key);
+  }
+
+  @override
+  Future<bool> setInt(String key, int value) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    return await prefs.setInt(key, value);
   }
 }
