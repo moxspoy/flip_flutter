@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:js_interop';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flip/blocs/user/user_bloc.dart';
@@ -66,19 +65,20 @@ class _SplashScreenState extends State<SplashScreen> {
       result = await _connectivity.checkConnectivity();
       if (result != ConnectivityResult.none) {
         // delay 2s, move to other screen
-        Future.delayed(const Duration(milliseconds: 500), () {
+        Future.delayed(const Duration(milliseconds: 500), () async {
           // Navigate to other screen
+          String? savedToken =
+              await SharedPrefs().getString(LocalStorageConstant().accessToken);
+          String token = savedToken ?? '';
 
-          if (SharedPrefs()
-              .getString(LocalStorageConstant().accessToken)
-              .isDefinedAndNotNull) {
+          if (token.isNotEmpty) {
             UserState userState = BlocProvider.of<UserBloc>(context).state;
             if (userState is UserDataState) {
               if (userState.name!.isEmpty) {
                 context.go(NavigationRouteName.onBoardingName);
                 return;
               }
-              if (userState.pin!.isNull) {
+              if (userState.pin! > 0) {
                 context.push(
                     '${NavigationRouteName.onBoardingSetupPin}?name=${userState.name}');
                 return;
