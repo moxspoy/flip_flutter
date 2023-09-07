@@ -152,17 +152,7 @@ class _OtpState extends State<OtpScreen> {
     );
   }
 
-  void onButtonPressed() async {
-    if (_otp.isEmpty) {
-      return;
-    }
-    if (_otp.length < 6) {
-      return;
-    }
-    setState(() {
-      _isLoading = true;
-    });
-
+  void verifyPhoneNumber() async {
     // Create a PhoneAuthCredential with the code
     PhoneAuthCredential credential = PhoneAuthProvider.credential(
         verificationId: widget.verificationId, smsCode: _otp);
@@ -180,5 +170,18 @@ class _OtpState extends State<OtpScreen> {
         context.push(NavigationRouteName.onBoardingName);
       }
     }
+  }
+
+  void onButtonPressed() async {
+    if (_otp.isEmpty) {
+      return;
+    }
+    if (_otp.length < 6) {
+      return;
+    }
+    setState(() {
+      _isLoading = true;
+    });
+    verifyPhoneNumber();
   }
 }
